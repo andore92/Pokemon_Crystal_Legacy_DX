@@ -40,7 +40,7 @@ else
 SHA1 := sha1sum
 endif
 
-RGBDS ?=
+RGBDS ?= ./rgbds-0.5.2-macos-x86-64/
 RGBASM  ?= $(RGBDS)rgbasm
 RGBFIX  ?= $(RGBDS)rgbfix
 RGBGFX  ?= $(RGBDS)rgbgfx
