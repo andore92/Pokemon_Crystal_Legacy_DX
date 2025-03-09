@@ -914,16 +914,11 @@ MoonBallMultiplier:
 	ret nz
 
 	inc hl
-	inc hl
-	inc hl
 
-; Moon Stone's constant from Pokémon Red is used.
-; No Pokémon evolve with Burn Heal,
-; so Moon Balls always have a catch rate of 1×.
 	push bc
 	ld a, BANK("Evolutions and Attacks")
 	call GetFarByte
-	cp MOON_STONE_RED ; BURN_HEAL
+	cp MOON_STONE
 	pop bc
 	ret nz
 
