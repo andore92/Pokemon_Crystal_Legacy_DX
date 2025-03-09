@@ -2552,20 +2552,24 @@ DittoMetalPowder:
 	pop bc
 	ret nz
 
-	ld a, c
-	srl a
-	add c
-	ld c, a
+	ld h, b
+	ld l, c
+	srl b
+	rr c
+	add hl, bc
+	ld b, h
+	ld c, l
+	
+	ld a, HIGH(MAX_STAT_VALUE)
+	cp b
+	jr c, .cap
+	ret nz
+	ld a, LOW(MAX_STAT_VALUE)
+	cp c
 	ret nc
 
-	srl b
-	ld a, b
-	and a
-	jr nz, .done
-	inc b
-.done
-	scf
-	rr c
+.cap
+	ld bc, MAX_STAT_VALUE
 	ret
 
 BattleCommand_DamageStats:
