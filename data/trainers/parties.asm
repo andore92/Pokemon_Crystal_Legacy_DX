@@ -207,7 +207,7 @@ ClairGroup:
 	; CLAIR (2): Rematch - Rebalanced for Crystal Legacy DX
 	db "CLAIR@", TRAINERTYPE_ITEM_MOVES
 	db 54, DRAGONAIR,  GOLD_BERRY,      THUNDER_WAVE, THUNDERBOLT, FLAMETHROWER, DRAGONBREATH
-	db 53, GYARADOS,   FOCUS_BAND,      BITE, WATERFALL, FLY, TWISTER
+	db 53, GYARADOS,   FOCUS_BAND,      CRUNCH, WATERFALL, FLY, TWISTER
 	db 53, LAPRAS,     MIRACLEBERRY,    SURF, ICE_BEAM, BODY_SLAM, REST
 	db 54, DRAGONAIR,  GOLD_BERRY,      THUNDER_WAVE, THUNDERBOLT, ICE_BEAM, DRAGONBREATH
 	db 55, KINGDRA,    LEFTOVERS,       AGILITY, HYDRO_PUMP, ICE_BEAM, DRAGONBREATH
@@ -540,8 +540,8 @@ KogaGroup:
 	; KOGA (1) - Rebalanced for Crystal Legacy DX
 	db "KOGA@", TRAINERTYPE_ITEM_MOVES
 	db 50, ARIADOS,		KINGS_ROCK,     MEGAHORN, GIGA_DRAIN, DOUBLE_TEAM, TOXIC
-	db 51, QWILFISH,    NO_ITEM,        WATERFALL, TOXIC, PROTECT, SLUDGE_BOMB
-	db 50, MUK,         LEFTOVERS,      MINIMIZE, FIRE_PUNCH, SLUDGE_BOMB, TOXIC
+	db 51, QWILFISH,    NO_ITEM,        WATERFALL, TOXIC, PROTECT, SLUDGE_BOMB ;replace sludge bomb with poison jab eventually 
+	db 50, MUK,         LEFTOVERS,      MINIMIZE, FIRE_PUNCH, SLUDGE_BOMB, TOXIC ;replace sludge bomb with poison jab eventually 
 	db 51, VENOMOTH,    NO_ITEM,        LEECH_LIFE, PSYCHIC_M, SLUDGE_BOMB, SLEEP_POWDER
 	db 52, CROBAT,      BRIGHTPOWDER,   DOUBLE_TEAM, TOXIC, BITE, CONFUSE_RAY
 	db -1 ; end
@@ -555,11 +555,11 @@ KogaGroup:
         db 67, MUK
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
 			db LEFTOVERS
-            db MINIMIZE, FIRE_PUNCH, SLUDGE_BOMB, TOXIC
+            db MINIMIZE, FIRE_PUNCH, SLUDGE_BOMB, TOXIC ;replace sludge bomb with poison jab eventually 
         db 67, GLIGAR
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db SCOPE_LENS
-            db IRON_TAIL, SLUDGE_BOMB, EARTHQUAKE, FAINT_ATTACK
+            db IRON_TAIL, SLUDGE_BOMB, EARTHQUAKE, FAINT_ATTACK ;replace sludge bomb with poison jab eventually 
         db 67, NIDOKING
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db QUICK_CLAW
@@ -575,13 +575,13 @@ KogaGroup:
 	db -1 ; end
 
 ChampionGroup:
-	; CHAMPION (1)
+	; CHAMPION (1) - Rebalanced for Crystal Legacy DX
 	db "LANCE@", TRAINERTYPE_ITEM_MOVES
-	db 54, GYARADOS,    LEFTOVERS,      SURF, RAIN_DANCE, HYPER_BEAM, ROCK_SMASH
+	db 54, GYARADOS,    LEFTOVERS,      WATERFALL, RAIN_DANCE, HEADBUTT, ROCK_SMASH
 	db 55, DRAGONITE,   GOLD_BERRY,     BLIZZARD, FIRE_BLAST, THUNDER, EXTREMESPEED
 	db 54, CHARIZARD,   CHARCOAL,       FLAMETHROWER, WING_ATTACK, DOUBLE_TEAM, STEEL_WING
-	db 55, ZAPDOS,      MAGNET,         DRILL_PECK, SKY_ATTACK, THUNDERBOLT, THUNDER_WAVE
-	db 54, AERODACTYL,  PINK_BOW,       WING_ATTACK, ROCK_SLIDE, HYPER_BEAM, EARTHQUAKE
+	db 55, ZAPDOS,      MAGNET,         DRILL_PECK, AEROBLAST, THUNDERBOLT, THUNDER_WAVE
+	db 54, AERODACTYL,  PINK_BOW,       WING_ATTACK, ROCK_SLIDE, HEADBUTT, EARTHQUAKE
 	db 56, DRAGONITE,   MIRACLEBERRY,   THUNDER, SAFEGUARD, OUTRAGE, HYPER_BEAM
 	db -1 ; end
 	
@@ -591,7 +591,7 @@ ChampionGroup:
 			db $dc, $dd
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db MAGNET
-            db CRUNCH, ROCK_SLIDE, EARTHQUAKE, THUNDERBOLT
+            db CRUNCH, ROCK_SLIDE, EARTHQUAKE, THUNDERPUNCH
         db 68, DRAGONITE
 			db $dc, $dd
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
@@ -601,12 +601,12 @@ ChampionGroup:
 			db $cf, $dd
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
 			db QUICK_CLAW
-            db HIDDEN_POWER, HYPER_BEAM, HYDRO_PUMP, FIRE_BLAST
+            db ROCK_SMASH, HEADBUTT, WATERFALL, CRUNCH
         db 68, CHARIZARD
 			db $dc, $dd
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db LEFTOVERS
-            db FIRE_BLAST, CRUNCH, EARTHQUAKE, SWORDS_DANCE
+            db FIRE_PUNCH, CRUNCH, EARTHQUAKE, SWORDS_DANCE ;replace fire punch with flare blitz eventually
         db 69, AERODACTYL
 			db $dc, $dd
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
@@ -616,7 +616,7 @@ ChampionGroup:
 			db $dc, $dd
 			dw $007F, $007F, $007F, $007F, $007F ; hp, atk, def, spd, spc
 			db PINK_BOW
-            db IRON_TAIL, CURSE, EXTREMESPEED, HYPER_BEAM
+            db IRON_TAIL, CURSE, EXTREMESPEED, FIRE_PUNCH
 	db -1 ; end
 
 BrockGroup:
