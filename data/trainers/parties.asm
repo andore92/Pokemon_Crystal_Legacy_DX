@@ -76,7 +76,7 @@ MortyGroup:
 	db 25, GENGAR,      MIRACLEBERRY,  HYPNOSIS, SHADOW_BALL, MEAN_LOOK, DREAM_EATER
 	db -1 ; end
 
-	; MORTY (2): Rematch  - No need to rebalance for Crystal Legacy DX
+	; MORTY (2): Rematch - No need to rebalance for Crystal Legacy DX
 	db "MORTY@", TRAINERTYPE_ITEM_MOVES
 	db 54, GENGAR,     NO_ITEM,      SHADOW_BALL, DESTINY_BOND, MEAN_LOOK, CONFUSE_RAY
 	db 53, STANTLER,   PINK_BOW,     SHADOW_BALL, HEADBUTT, HYPNOSIS, DREAM_EATER
@@ -122,7 +122,7 @@ PryceGroup:
 	db -1 ; end
 
 JasmineGroup:
-	; JASMINE (1): If you battle Jasmine first
+	; JASMINE (1): If you battle Jasmine first - No need to rebalance for Crystal Legacy DX
 	db "JASMINE@", TRAINERTYPE_ITEM_MOVES
 	db 35, SKARMORY, NO_ITEM,     SPIKES, DRILL_PECK, SWAGGER, STEEL_WING
 	db 35, CORSOLA,  NO_ITEM,     RAIN_DANCE, SURF, RECOVER, ANCIENTPOWER
@@ -131,7 +131,7 @@ JasmineGroup:
 	db 36, STEELIX,  QUICK_CLAW,  CRUNCH, EARTHQUAKE, ROCK_SLIDE, IRON_TAIL
 	db -1 ; end
 
-	; JASMINE (2): If you battle Jasmine second
+	; JASMINE (2): If you battle Jasmine second - No need to rebalance for Crystal Legacy DX
 	db "JASMINE@", TRAINERTYPE_ITEM_MOVES
 	db 35, SKARMORY, NO_ITEM,     SPIKES, DRILL_PECK, SWAGGER, STEEL_WING
 	db 35, CORSOLA,  NO_ITEM,     RAIN_DANCE, SURF, RECOVER, ANCIENTPOWER
@@ -140,7 +140,7 @@ JasmineGroup:
 	db 36, STEELIX,  QUICK_CLAW,  CRUNCH, EARTHQUAKE, ROCK_SLIDE, IRON_TAIL
 	db -1 ; end
 
-	; JASMINE (3): If you battle Jasmine third
+	; JASMINE (3): If you battle Jasmine third - No need to rebalance for Crystal Legacy DX
 	db "JASMINE@", TRAINERTYPE_ITEM_MOVES
 	db 37, SKARMORY, NO_ITEM,     SPIKES, DRILL_PECK, SWAGGER, STEEL_WING
 	db 37, CORSOLA,  NO_ITEM,     RAIN_DANCE, SURF, RECOVER, ANCIENTPOWER
@@ -149,7 +149,7 @@ JasmineGroup:
 	db 38, STEELIX,  QUICK_CLAW,  CRUNCH, EARTHQUAKE, ROCK_SLIDE, IRON_TAIL
 	db -1 ; end
 
-	; JASMINE (4): Rematch
+	; JASMINE (4): Rematch - No need to rebalance for Crystal Legacy DX
 	db "JASMINE@", TRAINERTYPE_ITEM_MOVES
 	db 53, SKARMORY,   NO_ITEM,       SPIKES, DRILL_PECK, SWAGGER, STEEL_WING
 	db 53, CORSOLA,    NO_ITEM,       RAIN_DANCE, SURF, RECOVER, ANCIENTPOWER
