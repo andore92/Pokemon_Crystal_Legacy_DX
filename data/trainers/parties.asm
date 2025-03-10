@@ -493,7 +493,7 @@ BrunoGroup:
 	db -1 ; end
 	
 KarenGroup:
-	; KAREN (1)
+	; KAREN (1) - No need to rebalance for Crystal Legacy DX
 	db "KAREN@", TRAINERTYPE_ITEM_MOVES
 	db 54, UMBREON,     MIRACLEBERRY,   FAINT_ATTACK, DOUBLE_TEAM,  BATON_PASS, MOONLIGHT
 	db 53, GENGAR,      NO_ITEM,        SHADOW_BALL, HYPNOSIS, DREAM_EATER, CONFUSE_RAY
@@ -502,7 +502,7 @@ KarenGroup:
 	db 55, HOUNDOOM,    BLACKGLASSES,   FLAMETHROWER, CRUNCH, IRON_TAIL, REVERSAL
 	db -1 ; end
 
-; KAREN (2) Rematch
+; KAREN (2) Rematch - No need to rebalance for Crystal Legacy DX
 	db "KAREN@", TRAINERTYPE_DVS | TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM_MOVES
 		db 68, UMBREON
 			db $fc, $dd
@@ -537,25 +537,25 @@ KarenGroup:
 	db -1 ; end
 
 KogaGroup:
-	; KOGA (1)
+	; KOGA (1) - Rebalanced for Crystal Legacy DX
 	db "KOGA@", TRAINERTYPE_ITEM_MOVES
 	db 50, ARIADOS,		KINGS_ROCK,     MEGAHORN, GIGA_DRAIN, DOUBLE_TEAM, TOXIC
-	db 51, QWILFISH,    NO_ITEM,        SURF, TOXIC, PROTECT, SLUDGE_BOMB
-	db 50, MUK,         LEFTOVERS,      MINIMIZE, FIRE_BLAST, SLUDGE_BOMB, TOXIC
+	db 51, QWILFISH,    NO_ITEM,        WATERFALL, TOXIC, PROTECT, SLUDGE_BOMB
+	db 50, MUK,         LEFTOVERS,      MINIMIZE, FIRE_PUNCH, SLUDGE_BOMB, TOXIC
 	db 51, VENOMOTH,    NO_ITEM,        LEECH_LIFE, PSYCHIC_M, SLUDGE_BOMB, SLEEP_POWDER
 	db 52, CROBAT,      BRIGHTPOWDER,   DOUBLE_TEAM, TOXIC, BITE, CONFUSE_RAY
 	db -1 ; end
 	
-	; KOGA (2) Rematch
+	; KOGA (2) Rematch - Rebalanced for Crystal Legacy DX
 	db "KOGA@", TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM_MOVES
 		db 67, TENTACRUEL
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db MINT_BERRY
-            db WATERFALL, BLIZZARD, GIGA_DRAIN, REST
+            db SURF, BLIZZARD, GIGA_DRAIN, REST
         db 67, MUK
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
 			db LEFTOVERS
-            db MINIMIZE, FIRE_BLAST, SLUDGE_BOMB, TOXIC
+            db MINIMIZE, FIRE_PUNCH, SLUDGE_BOMB, TOXIC
         db 67, GLIGAR
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db SCOPE_LENS
