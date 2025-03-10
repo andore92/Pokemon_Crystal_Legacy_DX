@@ -3453,6 +3453,7 @@ DonphanEvosAttacks:
 	db 1, GROWL
 	db 1, MUD_SLAP
 	db 1, DEFENSE_CURL
+	db 1, ROCK_SLIDE
 	db 14, MAGNITUDE
 	db 17, FLAIL
 	db 25, FURY_ATTACK

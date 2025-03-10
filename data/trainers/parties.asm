@@ -334,16 +334,16 @@ Rival1Group:
 PokemonProfGroup:
 
 WillGroup:
-	; WILL (1)
+	; WILL (1) - Rebalanced for Crystal Legacy DX
 	db "WILL@", TRAINERTYPE_ITEM_MOVES
 	db 48, GIRAFARIG,   NO_ITEM,       PSYCHIC_M, ROCK_SMASH, AGILITY, BATON_PASS
 	db 49, SLOWKING,    NO_ITEM,       AMNESIA, FLAMETHROWER, SURF, PSYCHIC_M
-	db 48, ESPEON,      NO_ITEM,       PSYCHIC_M, SHADOW_BALL, REFLECT, HEADBUTT
+	db 48, ESPEON,      NO_ITEM,       PSYCHIC_M, SHADOW_BALL, REFLECT, SWIFT
 	db 49, SLOWBRO,     QUICK_CLAW,    CURSE, ROCK_SMASH, BODY_SLAM, PSYCHIC_M
 	db 50, XATU,        TWISTEDSPOON,  DRILL_PECK, RECOVER, CONFUSE_RAY, PSYCHIC_M
 	db -1 ; end
 	
-	; WILL (2) Rematch
+	; WILL (2) Rematch - No need to rebalance for Crystal Legacy DX
 	db "WILL@", TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM_MOVES
 		db 66, STANTLER
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
@@ -455,7 +455,7 @@ PKMNTrainerGroup:
 	db -1 ; end
 
 BrunoGroup:
-	; BRUNO (1)
+	; BRUNO (1) - No need to rebalance for Crystal Legacy DX
 	db "BRUNO@", TRAINERTYPE_ITEM_MOVES
 	db 53, HITMONCHAN,  SCOPE_LENS,     MACH_PUNCH, PURSUIT, DIZZY_PUNCH, THUNDERPUNCH 
 	db 52, HERACROSS,   NO_ITEM,        CROSS_CHOP, MEGAHORN, TAKE_DOWN, EARTHQUAKE
@@ -464,7 +464,7 @@ BrunoGroup:
 	db 54, MACHAMP,     BLACKBELT_I,    ROCK_SLIDE, FIRE_PUNCH, VITAL_THROW, CROSS_CHOP
 	db -1 ; end
 
-	; BRUNO (2) Rematch
+	; BRUNO (2) Rematch - Rebalanced for Crystal Legacy DX
 	db "BRUNO@", TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM_MOVES
 		db 67, STEELIX
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
@@ -473,7 +473,7 @@ BrunoGroup:
         db 68, POLIWRATH
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db SCOPE_LENS
-            db SUBMISSION, BLIZZARD, HYDRO_PUMP, PSYCHIC_M
+            db SUBMISSION, ICE_PUNCH, WATERFALL, PSYCHIC_M
         db 67, HERACROSS
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
 			db QUICK_CLAW
@@ -481,11 +481,11 @@ BrunoGroup:
         db 68, DONPHAN
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db SCOPE_LENS
-            db CURSE, EARTHQUAKE, ANCIENTPOWER, ROCK_SMASH
+            db CURSE, EARTHQUAKE, ROCK_SLIDE, ROCK_SMASH
         db 67, GRANBULL
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
 			db LEFTOVERS
-            db HIDDEN_POWER, CRUNCH, REST, SNORE
+            db ROCK_SMASH, CRUNCH, REST, SNORE
         db 68, MACHAMP
 			dw $007F, $007F, $007F, $007F, $007F ; hp, atk, def, spd, spc
 			db LEFTOVERS
