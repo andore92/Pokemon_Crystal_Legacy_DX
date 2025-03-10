@@ -207,7 +207,7 @@ ClairGroup:
 	; CLAIR (2): Rematch - Rebalanced for Crystal Legacy DX
 	db "CLAIR@", TRAINERTYPE_ITEM_MOVES
 	db 54, DRAGONAIR,  GOLD_BERRY,      THUNDER_WAVE, THUNDERBOLT, FLAMETHROWER, DRAGONBREATH
-	db 53, GYARADOS,   FOCUS_BAND,      BITE, WATERFALL, FLY, TWISTER
+	db 53, GYARADOS,   FOCUS_BAND,      CRUNCH, WATERFALL, FLY, TWISTER
 	db 53, LAPRAS,     MIRACLEBERRY,    SURF, ICE_BEAM, BODY_SLAM, REST
 	db 54, DRAGONAIR,  GOLD_BERRY,      THUNDER_WAVE, THUNDERBOLT, ICE_BEAM, DRAGONBREATH
 	db 55, KINGDRA,    LEFTOVERS,       AGILITY, HYDRO_PUMP, ICE_BEAM, DRAGONBREATH
@@ -334,16 +334,16 @@ Rival1Group:
 PokemonProfGroup:
 
 WillGroup:
-	; WILL (1)
+	; WILL (1) - Rebalanced for Crystal Legacy DX
 	db "WILL@", TRAINERTYPE_ITEM_MOVES
 	db 48, GIRAFARIG,   NO_ITEM,       PSYCHIC_M, ROCK_SMASH, AGILITY, BATON_PASS
 	db 49, SLOWKING,    NO_ITEM,       AMNESIA, FLAMETHROWER, SURF, PSYCHIC_M
-	db 48, ESPEON,      NO_ITEM,       PSYCHIC_M, SHADOW_BALL, REFLECT, HEADBUTT
+	db 48, ESPEON,      NO_ITEM,       PSYCHIC_M, SHADOW_BALL, REFLECT, SWIFT
 	db 49, SLOWBRO,     QUICK_CLAW,    CURSE, ROCK_SMASH, BODY_SLAM, PSYCHIC_M
 	db 50, XATU,        TWISTEDSPOON,  DRILL_PECK, RECOVER, CONFUSE_RAY, PSYCHIC_M
 	db -1 ; end
 	
-	; WILL (2) Rematch
+	; WILL (2) Rematch - No need to rebalance for Crystal Legacy DX
 	db "WILL@", TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM_MOVES
 		db 66, STANTLER
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
@@ -455,7 +455,7 @@ PKMNTrainerGroup:
 	db -1 ; end
 
 BrunoGroup:
-	; BRUNO (1)
+	; BRUNO (1) - No need to rebalance for Crystal Legacy DX
 	db "BRUNO@", TRAINERTYPE_ITEM_MOVES
 	db 53, HITMONCHAN,  SCOPE_LENS,     MACH_PUNCH, PURSUIT, DIZZY_PUNCH, THUNDERPUNCH 
 	db 52, HERACROSS,   NO_ITEM,        CROSS_CHOP, MEGAHORN, TAKE_DOWN, EARTHQUAKE
@@ -464,7 +464,7 @@ BrunoGroup:
 	db 54, MACHAMP,     BLACKBELT_I,    ROCK_SLIDE, FIRE_PUNCH, VITAL_THROW, CROSS_CHOP
 	db -1 ; end
 
-	; BRUNO (2) Rematch
+	; BRUNO (2) Rematch - Rebalanced for Crystal Legacy DX
 	db "BRUNO@", TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM_MOVES
 		db 67, STEELIX
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
@@ -473,7 +473,7 @@ BrunoGroup:
         db 68, POLIWRATH
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db SCOPE_LENS
-            db SUBMISSION, BLIZZARD, HYDRO_PUMP, PSYCHIC_M
+            db SUBMISSION, ICE_PUNCH, WATERFALL, PSYCHIC_M
         db 67, HERACROSS
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
 			db QUICK_CLAW
@@ -481,11 +481,11 @@ BrunoGroup:
         db 68, DONPHAN
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db SCOPE_LENS
-            db CURSE, EARTHQUAKE, ANCIENTPOWER, ROCK_SMASH
+            db CURSE, EARTHQUAKE, ROCK_SLIDE, ROCK_SMASH
         db 67, GRANBULL
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
 			db LEFTOVERS
-            db HIDDEN_POWER, CRUNCH, REST, SNORE
+            db ROCK_SMASH, CRUNCH, REST, SNORE
         db 68, MACHAMP
 			dw $007F, $007F, $007F, $007F, $007F ; hp, atk, def, spd, spc
 			db LEFTOVERS
@@ -493,7 +493,7 @@ BrunoGroup:
 	db -1 ; end
 	
 KarenGroup:
-	; KAREN (1)
+	; KAREN (1) - No need to rebalance for Crystal Legacy DX
 	db "KAREN@", TRAINERTYPE_ITEM_MOVES
 	db 54, UMBREON,     MIRACLEBERRY,   FAINT_ATTACK, DOUBLE_TEAM,  BATON_PASS, MOONLIGHT
 	db 53, GENGAR,      NO_ITEM,        SHADOW_BALL, HYPNOSIS, DREAM_EATER, CONFUSE_RAY
@@ -502,7 +502,7 @@ KarenGroup:
 	db 55, HOUNDOOM,    BLACKGLASSES,   FLAMETHROWER, CRUNCH, IRON_TAIL, REVERSAL
 	db -1 ; end
 
-; KAREN (2) Rematch
+; KAREN (2) Rematch - No need to rebalance for Crystal Legacy DX
 	db "KAREN@", TRAINERTYPE_DVS | TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM_MOVES
 		db 68, UMBREON
 			db $fc, $dd
@@ -537,29 +537,29 @@ KarenGroup:
 	db -1 ; end
 
 KogaGroup:
-	; KOGA (1)
+	; KOGA (1) - Rebalanced for Crystal Legacy DX
 	db "KOGA@", TRAINERTYPE_ITEM_MOVES
 	db 50, ARIADOS,		KINGS_ROCK,     MEGAHORN, GIGA_DRAIN, DOUBLE_TEAM, TOXIC
-	db 51, QWILFISH,    NO_ITEM,        SURF, TOXIC, PROTECT, SLUDGE_BOMB
-	db 50, MUK,         LEFTOVERS,      MINIMIZE, FIRE_BLAST, SLUDGE_BOMB, TOXIC
+	db 51, QWILFISH,    NO_ITEM,        WATERFALL, TOXIC, PROTECT, SLUDGE_BOMB ;replace sludge bomb with poison jab eventually 
+	db 50, MUK,         LEFTOVERS,      MINIMIZE, FIRE_PUNCH, SLUDGE_BOMB, TOXIC ;replace sludge bomb with poison jab eventually 
 	db 51, VENOMOTH,    NO_ITEM,        LEECH_LIFE, PSYCHIC_M, SLUDGE_BOMB, SLEEP_POWDER
 	db 52, CROBAT,      BRIGHTPOWDER,   DOUBLE_TEAM, TOXIC, BITE, CONFUSE_RAY
 	db -1 ; end
 	
-	; KOGA (2) Rematch
+	; KOGA (2) Rematch - Rebalanced for Crystal Legacy DX
 	db "KOGA@", TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM_MOVES
 		db 67, TENTACRUEL
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db MINT_BERRY
-            db WATERFALL, BLIZZARD, GIGA_DRAIN, REST
+            db SURF, BLIZZARD, GIGA_DRAIN, REST
         db 67, MUK
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
 			db LEFTOVERS
-            db MINIMIZE, FIRE_BLAST, SLUDGE_BOMB, TOXIC
+            db MINIMIZE, FIRE_PUNCH, SLUDGE_BOMB, TOXIC ;replace sludge bomb with poison jab eventually 
         db 67, GLIGAR
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db SCOPE_LENS
-            db IRON_TAIL, SLUDGE_BOMB, EARTHQUAKE, FAINT_ATTACK
+            db IRON_TAIL, SLUDGE_BOMB, EARTHQUAKE, FAINT_ATTACK ;replace sludge bomb with poison jab eventually 
         db 67, NIDOKING
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db QUICK_CLAW
@@ -575,13 +575,13 @@ KogaGroup:
 	db -1 ; end
 
 ChampionGroup:
-	; CHAMPION (1)
+	; CHAMPION (1) - Rebalanced for Crystal Legacy DX
 	db "LANCE@", TRAINERTYPE_ITEM_MOVES
-	db 54, GYARADOS,    LEFTOVERS,      SURF, RAIN_DANCE, HYPER_BEAM, ROCK_SMASH
+	db 54, GYARADOS,    LEFTOVERS,      WATERFALL, RAIN_DANCE, HEADBUTT, ROCK_SMASH
 	db 55, DRAGONITE,   GOLD_BERRY,     BLIZZARD, FIRE_BLAST, THUNDER, EXTREMESPEED
 	db 54, CHARIZARD,   CHARCOAL,       FLAMETHROWER, WING_ATTACK, DOUBLE_TEAM, STEEL_WING
-	db 55, ZAPDOS,      MAGNET,         DRILL_PECK, SKY_ATTACK, THUNDERBOLT, THUNDER_WAVE
-	db 54, AERODACTYL,  PINK_BOW,       WING_ATTACK, ROCK_SLIDE, HYPER_BEAM, EARTHQUAKE
+	db 55, ZAPDOS,      MAGNET,         DRILL_PECK, AEROBLAST, THUNDERBOLT, THUNDER_WAVE
+	db 54, AERODACTYL,  PINK_BOW,       WING_ATTACK, ROCK_SLIDE, HEADBUTT, EARTHQUAKE
 	db 56, DRAGONITE,   MIRACLEBERRY,   THUNDER, SAFEGUARD, OUTRAGE, HYPER_BEAM
 	db -1 ; end
 	
@@ -591,7 +591,7 @@ ChampionGroup:
 			db $dc, $dd
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db MAGNET
-            db CRUNCH, ROCK_SLIDE, EARTHQUAKE, THUNDERBOLT
+            db CRUNCH, ROCK_SLIDE, EARTHQUAKE, THUNDERPUNCH
         db 68, DRAGONITE
 			db $dc, $dd
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
@@ -601,12 +601,12 @@ ChampionGroup:
 			db $cf, $dd
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
 			db QUICK_CLAW
-            db HIDDEN_POWER, HYPER_BEAM, HYDRO_PUMP, FIRE_BLAST
+            db ROCK_SMASH, HEADBUTT, WATERFALL, CRUNCH
         db 68, CHARIZARD
 			db $dc, $dd
 			dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 			db LEFTOVERS
-            db FIRE_BLAST, CRUNCH, EARTHQUAKE, SWORDS_DANCE
+            db FIRE_PUNCH, CRUNCH, EARTHQUAKE, SWORDS_DANCE ;replace fire punch with flare blitz eventually
         db 69, AERODACTYL
 			db $dc, $dd
 			dw $80BE, $80BE, $80BE, $80BE, $80BE ; hp, atk, def, spd, spc
@@ -616,7 +616,7 @@ ChampionGroup:
 			db $dc, $dd
 			dw $007F, $007F, $007F, $007F, $007F ; hp, atk, def, spd, spc
 			db PINK_BOW
-            db IRON_TAIL, CURSE, EXTREMESPEED, HYPER_BEAM
+            db IRON_TAIL, CURSE, EXTREMESPEED, FIRE_PUNCH
 	db -1 ; end
 
 BrockGroup:
