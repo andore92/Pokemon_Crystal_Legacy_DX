@@ -214,63 +214,63 @@ ClairGroup:
 	db -1 ; end
 
 Rival1Group:
-	; RIVAL1 (1)
+	; RIVAL1 (1) - No need to rebalance for Crystal Legacy DX
 	db "?@", TRAINERTYPE_NORMAL
 	db  5, CHIKORITA
 	db -1 ; end
 
-	; RIVAL1 (2)
+	; RIVAL1 (2) - No need to rebalance for Crystal Legacy DX
 	db "?@", TRAINERTYPE_NORMAL
 	db  5, CYNDAQUIL
 	db -1 ; end
 
-	; RIVAL1 (3)
+	; RIVAL1 (3) - No need to rebalance for Crystal Legacy DX
 	db "?@", TRAINERTYPE_NORMAL
 	db  5, TOTODILE
 	db -1 ; end
 
-	; RIVAL1 (4)
+	; RIVAL1 (4) - No need to rebalance for Crystal Legacy DX
 	db "?@", TRAINERTYPE_NORMAL
 	db 15, ZUBAT
 	db 16, LARVITAR
 	db 18, BAYLEEF
 	db -1 ; end
 
-	; RIVAL1 (5)
+	; RIVAL1 (5) - No need to rebalance for Crystal Legacy DX
 	db "?@", TRAINERTYPE_NORMAL
 	db 15, ZUBAT
 	db 16, LARVITAR
 	db 18, QUILAVA
 	db -1 ; end
 
-	; RIVAL1 (6)
+	; RIVAL1 (6) - No need to rebalance for Crystal Legacy DX
 	db "?@", TRAINERTYPE_NORMAL
 	db 15, ZUBAT
 	db 16, LARVITAR
 	db 18, CROCONAW
 	db -1 ; end
 
-	; RIVAL1 (7)
+	; RIVAL1 (7) - Rebalanced for Crystal Legacy DX
 	db "?@", TRAINERTYPE_MOVES
 	db 22, LARVITAR,   BITE, ROCK_THROW, SCREECH, NO_MOVE
 	db 23, REMORAID,   BUBBLEBEAM, AURORA_BEAM, PSYBEAM, NO_MOVE
-	db 22, GOLBAT,     BITE, CONFUSE_RAY, LEECH_LIFE, GUST
+	db 22, GOLBAT,     BITE, CONFUSE_RAY, LEECH_LIFE, WING_ATTACK
 	db 24, BAYLEEF,    MEGA_DRAIN, RAZOR_LEAF, TACKLE, LEECH_SEED
 	db -1 ; end
 
-	; RIVAL1 (8)
+	; RIVAL1 (8) - Rebalanced for Crystal Legacy DX
 	db "?@", TRAINERTYPE_MOVES
 	db 22, LARVITAR,    BITE, ROCK_THROW, SCREECH, NO_MOVE
-	db 23, WEEPINBELL,  RAZOR_LEAF, GROWTH, SLEEP_POWDER, STUN_SPORE
-	db 22, GOLBAT,      BITE, CONFUSE_RAY, LEECH_LIFE, GUST
-	db 24, QUILAVA,     FLAME_WHEEL, DIG, QUICK_ATTACK, SMOKESCREEN
+	db 23, WEEPINBELL,  RAZOR_LEAF, CUT, SLEEP_POWDER, STUN_SPORE
+	db 22, GOLBAT,      BITE, CONFUSE_RAY, LEECH_LIFE, WING_ATTACK
+	db 24, QUILAVA,     FLAME_WHEEL, MUD_SLAP, SWIFT, SMOKESCREEN
 	db -1 ; end
 
-	; RIVAL1 (9)
+	; RIVAL1 (9) - Rebalanced for Crystal Legacy DX
 	db "?@", TRAINERTYPE_MOVES
 	db 22, LARVITAR,    BITE, ROCK_THROW, SCREECH, NO_MOVE
 	db 23, HOUNDOUR,    EMBER, BITE, SMOG, ROAR
-	db 22, GOLBAT,      BITE, CONFUSE_RAY, LEECH_LIFE, GUST
+	db 22, GOLBAT,      BITE, CONFUSE_RAY, LEECH_LIFE, WING_ATTACK
 	db 24, CROCONAW,    BITE, ICE_PUNCH, WATER_GUN, MUD_SLAP
 	db -1 ; end
 
