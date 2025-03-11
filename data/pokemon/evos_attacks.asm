@@ -868,6 +868,7 @@ ArcanineEvosAttacks:
 	db 1, TAKE_DOWN
 	db 1, BITE
 	db 20, ROAR
+	db 40, CRUNCH
 	db 45, FLAMETHROWER
 	db 50, EXTREMESPEED
 	db 0 ; no more level-up moves
@@ -1668,6 +1669,7 @@ RhydonEvosAttacks:
 	db 1, TAIL_WHIP
 	db 1, FURY_ATTACK
 	db 1, STOMP
+	db 1, CRUNCH
 	db 19, ROCK_THROW
 	db 24, MAGNITUDE
 	db 31, SCARY_FACE
@@ -2151,6 +2153,7 @@ ArticunoEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, GUST
 	db 1, POWDER_SNOW
+	db 1, AEROBLAST
 	db 13, MIST
 	db 25, AGILITY
 	db 37, MIND_READER
