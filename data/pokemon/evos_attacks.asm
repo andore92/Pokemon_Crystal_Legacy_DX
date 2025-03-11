@@ -2180,6 +2180,7 @@ MoltresEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, WING_ATTACK
 	db 1, EMBER
+	db 1, AEROBLAST
 	db 13, FIRE_SPIN
 	db 25, AGILITY
 	db 37, ENDURE
