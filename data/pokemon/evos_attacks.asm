@@ -118,6 +118,7 @@ CharizardEvosAttacks:
 	db 45, BODY_SLAM
 	db 48, OUTRAGE
 	db 52, FIRE_BLAST
+	db 55, FLARE_BLITZ
 	db 0 ; no more level-up moves
 
 SquirtleEvosAttacks:
@@ -859,6 +860,7 @@ GrowlitheEvosAttacks:
 	db 30, TAKE_DOWN
 	db 35, FLAMETHROWER
 	db 36, AGILITY
+	db 39, FLARE_BLITZ
 	db 0 ; no more level-up moves
 
 ArcanineEvosAttacks:
@@ -867,6 +869,7 @@ ArcanineEvosAttacks:
 	db 1, FLAME_WHEEL
 	db 1, TAKE_DOWN
 	db 1, BITE
+	db 1, FLARE_BLITZ
 	db 20, ROAR
 	db 40, CRUNCH
 	db 45, FLAMETHROWER
@@ -2035,6 +2038,7 @@ FlareonEvosAttacks:
 	db 36, FLAMETHROWER
 	db 42, FIRE_SPIN
 	db 47, SMOG
+	db 50, FLARE_BLITZ
 	db 52, FIRE_BLAST
 	db 0 ; no more level-up moves
 
