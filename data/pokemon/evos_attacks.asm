@@ -355,6 +355,7 @@ ArbokEvosAttacks:
 	db 25, GLARE
 	db 27, SLUDGE
 	db 30, SCREECH
+	db 33, POISON_JAB
 	db 36, SLUDGE_BOMB
 	db 43, HAZE
 	db 0 ; no more level-up moves
@@ -458,6 +459,7 @@ NidoqueenEvosAttacks:
 	db 23, BODY_SLAM
 	db 27, MAGNITUDE
 	db 36, SLUDGE_BOMB
+	db 42, POISON_JAB
 	db 0 ; no more level-up moves
 
 NidoranMEvosAttacks:
@@ -495,6 +497,7 @@ NidokingEvosAttacks:
 	db 23, THRASH
 	db 27, MAGNITUDE
 	db 36, SLUDGE_BOMB
+	db 42, POISON_JAB
 	db 0 ; no more level-up moves
 
 ClefairyEvosAttacks:
@@ -1055,6 +1058,7 @@ VictreebelEvosAttacks:
 	db 33, SWEET_SCENT
 	db 41, SLUDGE_BOMB
 	db 45, SLAM
+	db 50, POISON_JAB
 	db 0 ; no more level-up moves
 
 TentacoolEvosAttacks:
@@ -1310,6 +1314,7 @@ GrimerEvosAttacks:
 	db 16, SLUDGE
 	db 23, MINIMIZE
 	db 31, SCREECH
+	db 34, POISON_JAB
 	db 38, SLUDGE_BOMB
 	db 45, ACID_ARMOR
 	db 0 ; no more level-up moves
@@ -3102,6 +3107,7 @@ GligarEvosAttacks:
 	db 20, QUICK_ATTACK
 	db 24, WING_ATTACK
 	db 28, FAINT_ATTACK
+	db 32, POISON_JAB
 	db 36, SLASH
 	db 38, EARTHQUAKE
 	db 44, SCREECH
@@ -3164,6 +3170,7 @@ QwilfishEvosAttacks:
 	db 14, SPIKES
 	db 20, SLUDGE
 	db 26, PIN_MISSILE
+	db 28, POISON_JAB
 	db 30, BUBBLEBEAM
 	db 32, PROTECT
 	db 36, TOXIC

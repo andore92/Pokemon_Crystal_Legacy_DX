@@ -253,14 +253,13 @@ MoveDescriptions::
 	dw WhirlpoolDescription
 	dw BeatUpDescription
 	dw FlareBlitzDescription
+	dw PoisonJabDescription
 	assert_table_length NUM_ATTACKS
-	dw MoveFDDescription
 	dw MoveFEDescription
 	dw MoveFFDescription
 	dw Move00Description
 	assert_table_length $100
 
-MoveFDDescription:
 MoveFEDescription:
 MoveFFDescription:
 Move00Description:
@@ -771,8 +770,8 @@ FireBlastDescription:
 	next "may cause a burn.@"
 
 WaterfallDescription:
-	db   "An aquatic charge"
-	next "attack.@"
+	db   "An attack that may"
+	next "cause flinching.@"
 
 ClampDescription:
 	db   "Traps the foe for"
@@ -1273,3 +1272,7 @@ BeatUpDescription:
 FlareBlitzDescription:
 	db   "Fiery charge that"
 	next "hurts the user.@"
+
+PoisonJabDescription:
+	db   "A punch that may"
+	next "poison the foe.@"
