@@ -386,7 +386,7 @@ PKMNTrainerGroup:
 	db 30, CROCONAW
 	db -1 ; end
 
-	; SMITH
+	; SMITH - Rebalanced for Crystal Legacy DX
 	db "SMITH@", TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM_MOVES
 		db 70, RAIKOU
 				dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
@@ -399,7 +399,7 @@ PKMNTrainerGroup:
 		db 70, ALAKAZAM
 				dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 				db TWISTEDSPOON
-				db PSYCHIC_M, THUNDERPUNCH, DYNAMICPUNCH, SHADOW_BALL
+				db PSYCHIC_M, THUNDERBOLT, HYPER_BEAM, SHADOW_BALL
 		db 70, SCIZOR
 				dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 				db METAL_COAT
@@ -407,14 +407,14 @@ PKMNTrainerGroup:
 		db 70, DRAGONITE
 				dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 				db BITTER_BERRY
-				db OUTRAGE, FLAMETHROWER, THUNDERBOLT, EXTREMESPEED
+				db OUTRAGE, FIRE_PUNCH, THUNDERPUNCH, EXTREMESPEED
 		db 70, FERALIGATR
 				dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 				db MIRACLEBERRY
-				db SURF, EARTHQUAKE, ICE_PUNCH, CRUNCH
+				db WATERFALL, EARTHQUAKE, ICE_PUNCH, CRUNCH
 	db -1 ; end
 
-	; CRAIG
+	; CRAIG - Rebalanced for Crystal Legacy DX
 	db "CRAIG@", TRAINERTYPE_NICKNAME | TRAINERTYPE_DVS | TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM_MOVES
 		db 70, JOLTEON	
 				db "@JOLTEON@"
@@ -433,7 +433,7 @@ PKMNTrainerGroup:
 				db PERFECT_DV, $fd ; atk|def, spd|spc
 				dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 				db GOLD_BERRY
-				db CURSE, EARTHQUAKE, ANCIENTPOWER, SUBSTITUTE
+				db CURSE, EARTHQUAKE, ROCK_SLIDE, SUBSTITUTE
 		db 70, MISDREAVUS
 				db "@MISDREAVUS@"
 				db $df, $df ; atk|def, spd|spc
@@ -451,7 +451,7 @@ PKMNTrainerGroup:
 				db $ee, PERFECT_DV ; atk|def, spd|spc
 				dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 				db CHARCOAL
-				db FIRE_BLAST, EXTREMESPEED, CURSE, HIDDEN_POWER
+				db FIRE_BLAST, EXTREMESPEED, CURSE, HIDDEN_POWER ;replace fire blast with flare blitz
 	db -1 ; end
 
 BrunoGroup:
@@ -1476,7 +1476,7 @@ CooltrainerFGroup:
 	db "CARA@", TRAINERTYPE_MOVES
 	db 40, SEADRA,     SMOKESCREEN, LEER, SURF, TWISTER
 	db 41, SEADRA,     SWIFT, LEER, SURF, TWISTER
-	db 42, GYARADOS,   DRAGONBREATH, LEER, GUST, WATERFALL
+	db 42, GYARADOS,   DRAGONBREATH, LEER, FLY, WATERFALL
 	db -1 ; end
 
 BeautyGroup:
@@ -3073,7 +3073,7 @@ BlackbeltGroup:
 	db 27, PRIMEAPE
 	db -1 ; end
 
-	; BLACKBELT_T (8)
+	; BLACKBELT_T (8) - No need to rebalance for Crystal Legacy DX
 	db "KENJI@", TRAINERTYPE_MOVES
 	db 33, ONIX,       BIND, ROCK_THROW, TOXIC, DIG
 	db 38, MACHAMP,    HEADBUTT, SWAGGER, FORESIGHT, VITAL_THROW
@@ -3099,7 +3099,7 @@ ExecutiveMGroup:
 	db 40, SLOWBRO,     SURF, CONFUSION, CURSE, AMNESIA
 	db -1 ; end
 	
-	; EXECUTIVEM (2)
+	; EXECUTIVEM (2) - No need to rebalance for Crystal Legacy DX	s
 	db "EXECUTIVE@", TRAINERTYPE_MOVES
 	db 38, FORRETRESS,  SPIKE_CANNON, PIN_MISSILE, EXPLOSION, SPIKES
 	db 38, PUPITAR,    THRASH, ROCK_SLIDE, SCREECH, BITE 
@@ -3107,16 +3107,16 @@ ExecutiveMGroup:
 	db 38, CLOYSTER,   SURF, ICE_BEAM, CLAMP, NO_MOVE
 	db -1 ; end
 
-	; EXECUTIVEM (3)
+	; EXECUTIVEM (3) - Rebalanced for Crystal Legacy DX
 	db "EXECUTIVE@", TRAINERTYPE_MOVES
 	db 36, MUK,        MINIMIZE, SLUDGE_BOMB, POUND, ACID_ARMOR
 	db 37, NIDOQUEEN,  BODY_SLAM, SLUDGE_BOMB, DOUBLE_KICK, THUNDERPUNCH
 	db 36, WEEZING,    TACKLE, SLUDGE_BOMB, SELFDESTRUCT, HAZE
-	db 37, NIDOKING,   THRASH, SLUDGE_BOMB, DOUBLE_KICK, ICE_PUNCH
-	db 38, RHYDON,     ROCK_SLIDE, EARTHQUAKE, SURF, NO_MOVE
+	db 37, NIDOKING,   THRASH, SLUDGE_BOMB, DOUBLE_KICK, ICE_PUNCH ;replace sludge bomb with poison jab eventually
+	db 38, RHYDON,     ROCK_SLIDE, EARTHQUAKE, HORN_ATTACK, NO_MOVE
 	db -1 ; end
 
-	; EXECUTIVEM (4)
+	; EXECUTIVEM (4) - No need to rebalance for Crystal Legacy DX
 	db "ARCHER@", TRAINERTYPE_MOVES
 	db 30, WEEZING, 	SLUDGE, SMOKESCREEN, TACKLE, TOXIC
 	db 29, TAUROS,      RAGE, FRUSTRATION, HORN_ATTACK, PURSUIT
@@ -3130,9 +3130,9 @@ PsychicGroup:
 	db 26, GIRAFARIG
 	db -1 ; end
 
-	; PSYCHIC_T (2)
+	; PSYCHIC_T (2) - Rebalanced for Crystal Legacy DX
 	db "FRANKLIN@", TRAINERTYPE_MOVES
-	db 60, ALAKAZAM,    PSYCHIC_M, RECOVER, SHADOW_BALL, THUNDERPUNCH
+	db 60, ALAKAZAM,    PSYCHIC_M, RECOVER, SHADOW_BALL, THUNDERBOLT
 	db -1 ; end
 
 	; PSYCHIC_T (3)
@@ -3147,25 +3147,25 @@ PsychicGroup:
 	db 54, XATU
 	db -1 ; end
 
-	; PSYCHIC_T (5)
+	; PSYCHIC_T (5) - No need to rebalance for Crystal Legacy DX
 	db "GREG@", TRAINERTYPE_MOVES
 	db 22, STANTLER,   NIGHTMARE, HYPNOSIS, LEER, HEADBUTT
 	db -1 ; end
 
-	; PSYCHIC_T (6)
+	; PSYCHIC_T (6) - No need to rebalance for Crystal Legacy DX
 	db "NORMAN@", TRAINERTYPE_MOVES
 	db 22, SLOWPOKE,   TACKLE, GROWL, WATER_GUN, CONFUSION
 	db 23, SLOWPOKE,   CURSE, AMNESIA, WATER_GUN, CONFUSION
 	db -1 ; end
 
-	; PSYCHIC_T (7)
+	; PSYCHIC_T (7) - No need to rebalance for Crystal Legacy DX
 	db "MARK@", TRAINERTYPE_MOVES
 	db 15, ABRA,       TELEPORT, FLASH, NO_MOVE, NO_MOVE
 	db 15, ABRA,       TELEPORT, FLASH, NO_MOVE, NO_MOVE
 	db 16, KADABRA,    TELEPORT, KINESIS, CONFUSION, NO_MOVE
 	db -1 ; end
 
-	; PSYCHIC_T (8)
+	; PSYCHIC_T (8) - No need to rebalance for Crystal Legacy DX
 	db "PHIL@", TRAINERTYPE_MOVES
 	db 36, XATU,        PSYCHIC_M, NIGHT_SHADE, FUTURE_SIGHT, CONFUSE_RAY
 	db 36, KADABRA,     DISABLE, PSYBEAM, RECOVER, NO_MOVE
@@ -3211,7 +3211,7 @@ PicnickerGroup:
 	db 14, BULBASAUR
 	db -1 ; end
 
-	; PICNICKER (3)
+	; PICNICKER (3) - No need to rebalance for Crystal Legacy DX
 	db "BROOKE@", TRAINERTYPE_MOVES
 	db 18, PIKACHU,    THUNDERSHOCK, GROWL, QUICK_ATTACK, DOUBLE_TEAM
 	db -1 ; end
@@ -3290,13 +3290,13 @@ PicnickerGroup:
 	db 35, IVYSAUR
 	db -1 ; end
 
-	; PICNICKER (16)
+	; PICNICKER (16) - No need to rebalance for Crystal Legacy DX
 	db "TIFFANY@", TRAINERTYPE_MOVES
 	db 34, CLEFABLE,   ENCORE, SING, DOUBLESLAP, MINIMIZE
 	db 34, WIGGLYTUFF, SING, DOUBLESLAP, DEFENSE_CURL, HEADBUTT
 	db -1 ; end
 
-	; PICNICKER (17)
+	; PICNICKER (17) - No need to rebalance for Crystal Legacy DX
 	db "TIFFANY@", TRAINERTYPE_MOVES
 	db 37, CLEFAIRY,   ENCORE, DOUBLESLAP, MINIMIZE, METRONOME
 	db -1 ; end
@@ -3316,17 +3316,17 @@ PicnickerGroup:
 	db 57, SUNFLORA
 	db -1 ; end
 
-	; PICNICKER (20)
+	; PICNICKER (20) - No need to rebalance for Crystal Legacy DX
 	db "TIFFANY@", TRAINERTYPE_MOVES
 	db 29, CLEFABLE,   ENCORE, SING, DOUBLESLAP, MINIMIZE
 	db -1 ; end
 
-	; PICNICKER (21)
+	; PICNICKER (21) - To be rebalanced for Crystal Legacy DX
 	db "ERIN@", TRAINERTYPE_MOVES
-	db 44, RAPIDASH,    DOUBLE_TEAM, STOMP, FLAMETHROWER, SUNNY_DAY
+	db 44, RAPIDASH,    DOUBLE_TEAM, STOMP, FLAMETHROWER, SUNNY_DAY ;replace flamethrower with flare blitz eventually
 	db 42, NIDOQUEEN,   BODY_SLAM, SURF, EARTHQUAKE, SLUDGE_BOMB
 	db 40, RAICHU,      SWIFT, MUD_SLAP, QUICK_ATTACK, THUNDERBOLT
-	db 44, RAPIDASH,    DOUBLE_TEAM, STOMP, FLAMETHROWER, SUNNY_DAY
+	db 44, RAPIDASH,    DOUBLE_TEAM, STOMP, FLAMETHROWER, SUNNY_DAY ;replace flamethrower with flare blitz eventually
 	db -1 ; end
 
 	; PICNICKER (22)
@@ -3336,11 +3336,11 @@ PicnickerGroup:
 	db 36, NIDOQUEEN
 	db -1 ; end
 
-	; PICNICKER (23)
+	; PICNICKER (23) - To be rebalanced for Crystal Legacy DX
 	db "LIZ@", TRAINERTYPE_MOVES
 	db 50, VICTREEBEL, SLEEP_POWDER, POISONPOWDER, STUN_SPORE, SLUDGE_BOMB
-	db 52, NIDOKING,   EARTHQUAKE, DOUBLE_KICK, SLUDGE_BOMB, IRON_TAIL
-	db 53, NIDOQUEEN,  EARTHQUAKE, DOUBLE_KICK, SLUDGE_BOMB, BODY_SLAM
+	db 52, NIDOKING,   EARTHQUAKE, DOUBLE_KICK, SLUDGE_BOMB, IRON_TAIL ;replace sludge bomb with poison jab
+	db 53, NIDOQUEEN,  EARTHQUAKE, DOUBLE_KICK, SLUDGE_BOMB, BODY_SLAM ;replace sludge bomb with poison jab
 	db -1 ; end
 
 	; PICNICKER (24)
@@ -3350,14 +3350,14 @@ PicnickerGroup:
 	db 48, VENUSAUR
 	db -1 ; end
 
-	; PICNICKER (25)
+	; PICNICKER (25) - Rebalanced for Crystal Legacy DX
 	db "GINA@", TRAINERTYPE_MOVES
 	db 52, JUMPLUFF,   STUN_SPORE, SUNNY_DAY, LEECH_SEED, GIGA_DRAIN
 	db 52, JUMPLUFF,   SUNNY_DAY, SLEEP_POWDER, LEECH_SEED, GIGA_DRAIN
-	db 55, VENUSAUR,   SOLARBEAM, RAZOR_LEAF, BODY_SLAM, MUD_SLAP
+	db 55, VENUSAUR,   SOLARBEAM, RAZOR_LEAF, SLUDGE_BOMB, MUD_SLAP
 	db -1 ; end
 
-	; PICNICKER (26)
+	; PICNICKER (26) - No need to rebalance for Crystal Legacy DX
 	db "TIFFANY@", TRAINERTYPE_MOVES
 	db 53, CLEFABLE,   DOUBLE_EDGE, ENCORE, MOONLIGHT, MINIMIZE
 	db 54, WIGGLYTUFF, SING, DOUBLESLAP, DEFENSE_CURL, HEADBUTT
@@ -3511,18 +3511,18 @@ CamperGroup:
 	db -1 ; end
 
 ExecutiveFGroup:
-	; EXECUTIVEF (1)
+	; EXECUTIVEF (1) - Rebalanced for Crystal Legacy DX
 	db "ARIANA@", TRAINERTYPE_MOVES
-	db 39, ARBOK,      SLUDGE_BOMB, SCREECH, BITE, GLARE
+	db 39, ARBOK,      SLUDGE_BOMB, SCREECH, BITE, GLARE ;replace sludge bomb with poison jab eventually
 	db 40, PERSIAN,    SLASH, BITE, SCREECH, CHARM
 	db 39, VILEPLUME,  GIGA_DRAIN, SLEEP_POWDER, SLUDGE_BOMB, NO_MOVE
-	db 40, GYARADOS,   SURF, STRENGTH, TWISTER, GUST
+	db 40, GYARADOS,   WATERFALL, STRENGTH, ROCK_SMASH, THRASH
 	db 40, MURKROW,    FLY, PURSUIT, TOXIC, FAINT_ATTACK
 	db -1 ; end
 
-	; EXECUTIVEF (2)
+	; EXECUTIVEF (2) - To be rebalanced for Crystal Legacy DX
 	db "ARIANA@", TRAINERTYPE_MOVES
-	db 31, ARBOK,          WRAP, LEER, SLUDGE_BOMB, BITE
+	db 31, ARBOK,          WRAP, LEER, SLUDGE_BOMB, BITE ;replace sludge bomb with poison jab eventually
 	db 30, PERSIAN,        SLASH, FAINT_ATTACK, PAY_DAY, MUD_SLAP
 	db 30, VILEPLUME,      GIGA_DRAIN, SWEET_SCENT, SLEEP_POWDER, SLUDGE_BOMB
 	db 31, MURKROW,        FLY, PURSUIT, TOXIC, FAINT_ATTACK
@@ -3790,13 +3790,13 @@ TwinsGroup:
 	db 12, SPINARAK
 	db -1 ; end
 
-	; TWINS (2)
+	; TWINS (2) - No need to rebalance for Crystal Legacy DX
 	db "ANN & ANNE@", TRAINERTYPE_MOVES
 	db 18, CLEFAIRY,  GROWL, ENCORE, DOUBLESLAP, METRONOME
 	db 18, FURRET,    QUICK_ATTACK, DEFENSE_CURL, FURY_SWIPES, NO_MOVE
 	db -1 ; end
 
-	; TWINS (3)
+	; TWINS (3) - No need to rebalance for Crystal Legacy DX
 	db "ANN & ANNE@", TRAINERTYPE_MOVES
 	db 18, FURRET,    QUICK_ATTACK, DEFENSE_CURL, FURY_SWIPES, NO_MOVE
 	db 18, CLEFAIRY,  GROWL, ENCORE, DOUBLESLAP, METRONOME
@@ -3832,20 +3832,20 @@ TwinsGroup:
 	db 54, URSARING
 	db -1 ; end
 
-	; TWINS (9)
+	; TWINS (9) - Rebanced for Crystal Legacy DX
 	db "LEA & PIA@", TRAINERTYPE_MOVES
 	db 41, DRAGONAIR,    THUNDER_WAVE, TWISTER, FLAMETHROWER, DRAGONBREATH
-	db 42, GYARADOS,     SURF, STRENGTH, FLY, TWISTER
+	db 42, GYARADOS,     WATERFALL, STRENGTH, FLY, BITE
 	db 41, DRAGONAIR,    THUNDER_WAVE, TWISTER, ICE_BEAM, DRAGONBREATH
-	db 42, GYARADOS,     SURF, STRENGTH, FLY, TWISTER
+	db 42, GYARADOS,     WATERFALL, STRENGTH, FLY, BITE
 	db -1 ; end
 
-	; TWINS (10)
+	; TWINS (10) - Rebalanced for Crystal Legacy DX
 	db "LEA & PIA@", TRAINERTYPE_MOVES
 	db 41, DRAGONAIR,    THUNDER_WAVE, TWISTER, ICE_BEAM, DRAGONBREATH
-	db 42, GYARADOS,     SURF, STRENGTH, FLY, TWISTER
+	db 42, GYARADOS,     WATERFALL, STRENGTH, FLY, BITE
 	db 41, DRAGONAIR,    THUNDER_WAVE, TWISTER, FLAMETHROWER, DRAGONBREATH
-	db 42, GYARADOS,     SURF, STRENGTH, FLY, TWISTER
+	db 42, GYARADOS,     WATERFALL, STRENGTH, FLY, BITE
 	db -1 ; end
 
 PokefanFGroup:
@@ -3884,7 +3884,7 @@ PokefanFGroup:
 	db -1 ; end
 
 RedGroup:
-	; RED (1)
+	; RED (1) - No need to rebalance for Crystal Legacy DX
 	db "RED@", TRAINERTYPE_ITEM_MOVES
 	db 93, PIKACHU,    LIGHT_BALL,     THUNDERBOLT, SURF, IRON_TAIL, DOUBLE_TEAM
 	db 75, SNORLAX,    LEFTOVERS,      AMNESIA, CURSE, BODY_SLAM, EARTHQUAKE
@@ -3894,7 +3894,7 @@ RedGroup:
 	db 75, MEWTWO,     MIRACLEBERRY,   RECOVER, SUBMISSION, FLAMETHROWER, PSYCHIC_M
 	db -1 ; end
 
-	; RED (2) Rematch
+	; RED (2) Rematch - No need to rebalance for Crystal Legacy DX
 	db "RED@", TRAINERTYPE_DVS | TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM_MOVES
 		db 93, PIKACHU
 			db $fd, $de
@@ -3996,15 +3996,15 @@ GruntFGroup:
 	db -1 ; end
 
 MysticalmanGroup:
-	; MYSTICALMAN (1)
+	; MYSTICALMAN (1) - Rebalanced for Crystal Legacy DX
 	db "EUSINE@", TRAINERTYPE_MOVES
 	db 27, POLITOED,    ICE_BEAM, BUBBLEBEAM, RAIN_DANCE, HYPNOSIS
 	db 27, HYPNO,       DREAM_EATER, HYPNOSIS, DISABLE, CONFUSION
-	db 27, FLAAFFY,     THUNDERPUNCH, THUNDER_WAVE, THUNDERSHOCK, BODY_SLAM
+	db 27, FLAAFFY,     THUNDERBOLT, THUNDER_WAVE, THUNDERSHOCK, BODY_SLAM
 	db -1 ; end
 
 BossGroup:
-	; BOSS (1)
+	; BOSS (1) - No need to rebalance for Crystal Legacy DX
 	db "GIOVANNI@",  TRAINERTYPE_MOVES
 	db 40, KANGASKHAN,  MEGA_PUNCH, DIZZY_PUNCH, FIRE_PUNCH, SAFEGUARD
 	db 41, NIDOQUEEN,   BODY_SLAM, ICE_PUNCH, SLUDGE_BOMB, BUBBLEBEAM
@@ -4033,7 +4033,7 @@ ArcherGroup:
 	db -1 ; end
 	
 PKMNTrainerFGroup:
-	; WEEBRA
+	; WEEBRA - Rebalanced for Crystal Legacy DX
 	db "WEEBRA@", TRAINERTYPE_NICKNAME | TRAINERTYPE_DVS | TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM_MOVES
 		db 70, FORRETRESS	
 				db "@FORRETRESS@"
@@ -4070,5 +4070,5 @@ PKMNTrainerFGroup:
 				db $dc, PERFECT_DV ; atk|def, spd|spc
 				dw $01FE, $01FE, $01FE, $01FE, $01FE ; hp, atk, def, spd, spc
 				db BERSERK_GENE
-				db TRIPLE_KICK, THIEF, HIDDEN_POWER, DIG
+				db TRIPLE_KICK, THIEF, STRENGTH, DIG
 	db -1 ; end
