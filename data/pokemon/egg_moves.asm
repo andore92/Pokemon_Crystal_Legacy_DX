@@ -681,6 +681,7 @@ SneaselEggMoves:
 	db FORESIGHT
 	db REFLECT
 	db BITE
+	db ICICLE_CRASH
 	db -1 ; end
 
 TeddiursaEggMoves:
@@ -702,6 +703,7 @@ SwinubEggMoves:
 	db BODY_SLAM
 	db ROCK_SLIDE
 	db ANCIENTPOWER
+	db ICICLE_CRASH
 	db -1 ; end
 
 CorsolaEggMoves:

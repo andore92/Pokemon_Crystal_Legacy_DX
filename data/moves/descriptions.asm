@@ -254,8 +254,8 @@ MoveDescriptions::
 	dw BeatUpDescription
 	dw FlareBlitzDescription
 	dw PoisonJabDescription
+	dw IcicleCrashDescription
 	assert_table_length NUM_ATTACKS
-	dw MoveFEDescription
 	dw MoveFFDescription
 	dw Move00Description
 	assert_table_length $100
@@ -1276,3 +1276,7 @@ FlareBlitzDescription:
 PoisonJabDescription:
 	db   "A punch that may"
 	next "poison the foe.@"
+
+IcicleCrashDescription:
+	db   "An attack that may"
+	next "cause flinching.@"

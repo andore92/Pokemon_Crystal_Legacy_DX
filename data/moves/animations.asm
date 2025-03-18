@@ -254,9 +254,9 @@ BattleAnimations::
 	dw BattleAnim_Whirlpool
 	dw BattleAnim_BeatUp
 	dw BattleAnim_FlareBlitz
-	dw BattleAnime_PoisonJab
+	dw BattleAnim_PoisonJab
+	dw BattleAnim_IcicleCrash
 	assert_table_length NUM_ATTACKS + 1
-	dw BattleAnim_254
 	dw BattleAnim_SweetScent2
 	assert_table_length $100
 ; $100
@@ -4632,6 +4632,40 @@ BattleAnim_PoisonJab:
 	anim_loop 3, .loop
 	anim_call BattleAnim_SludgeBomb_branch_cbc15
 	anim_wait 32
+	anim_ret
+
+BattleAnim_IcicleCrash:
+	anim_2gfx ANIM_GFX_ICE, ANIM_GFX_ROCKS
+.loop
+	anim_sound 6, 2, SFX_SHINE
+	anim_obj ANIM_OBJ_BLIZZARD, 64, 96, $63
+	anim_wait 2
+	anim_loop 3, .loop
+	anim_bgeffect ANIM_BG_WHITE_HUES, $0, $8, $0
+	anim_wait 32
+	anim_bgeffect ANIM_BG_1F, $60, $1, $0
+	anim_sound 0, 1, SFX_STRENGTH
+	anim_obj ANIM_OBJ_SMALL_ROCK, 128, 64, $40
+	anim_wait 2
+	anim_sound 0, 1, SFX_STRENGTH
+	anim_obj ANIM_OBJ_BIG_ROCK, 120, 68, $30
+	anim_wait 2
+	anim_sound 0, 1, SFX_STRENGTH
+	anim_obj ANIM_OBJ_SMALL_ROCK, 152, 68, $30
+	anim_wait 2
+	anim_sound 0, 1, SFX_STRENGTH
+	anim_obj ANIM_OBJ_BIG_ROCK, 144, 64, $40
+	anim_wait 2
+	anim_sound 0, 1, SFX_STRENGTH
+	anim_obj ANIM_OBJ_SMALL_ROCK, 136, 68, $30
+	anim_wait 96
+	anim_ret
+	anim_obj ANIM_OBJ_ICE_BUILDUP, 136, 74, $10
+	anim_wait 128
+	anim_sound 0, 1, SFX_SHINE
+	anim_wait 8
+	anim_sound 0, 1, SFX_SHINE
+	anim_wait 24
 	anim_ret
 
 BattleAnimSub_Drain:

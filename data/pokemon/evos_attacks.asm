@@ -82,6 +82,7 @@ CharmanderEvosAttacks:
 	db 44, BODY_SLAM
 	db 48, DRAGON_RAGE
 	db 52, FIRE_BLAST
+	db 55, FLARE_BLITZ
 	db 0 ; no more level-up moves
 
 CharmeleonEvosAttacks:
@@ -100,6 +101,7 @@ CharmeleonEvosAttacks:
 	db 44, BODY_SLAM
 	db 48, DRAGON_RAGE
 	db 52, FIRE_BLAST
+	db 55, FLARE_BLITZ
 	db 0 ; no more level-up moves
 
 CharizardEvosAttacks:
@@ -1021,6 +1023,7 @@ BellsproutEvosAttacks:
 	db 33, SWEET_SCENT
 	db 41, SLUDGE_BOMB
 	db 45, SLAM
+	db 47, POISON_JAB
 	db 0 ; no more level-up moves
 
 WeepinbellEvosAttacks:
@@ -1040,6 +1043,7 @@ WeepinbellEvosAttacks:
 	db 33, SWEET_SCENT
 	db 41, SLUDGE_BOMB
 	db 45, SLAM
+	db 47, POISON_JAB
 	db 0 ; no more level-up moves
 
 VictreebelEvosAttacks:
@@ -1058,7 +1062,7 @@ VictreebelEvosAttacks:
 	db 33, SWEET_SCENT
 	db 41, SLUDGE_BOMB
 	db 45, SLAM
-	db 50, POISON_JAB
+	db 47, POISON_JAB
 	db 0 ; no more level-up moves
 
 TentacoolEvosAttacks:
@@ -1072,6 +1076,7 @@ TentacoolEvosAttacks:
 	db 20, BUBBLEBEAM
 	db 25, SLUDGE
 	db 30, WRAP
+	db 33, POISON_JAB
 	db 37, BARRIER
 	db 43, SCREECH
 	db 49, HYDRO_PUMP
@@ -1087,6 +1092,7 @@ TentacruelEvosAttacks:
 	db 20, SLUDGE
 	db 25, BUBBLEBEAM
 	db 30, WRAP
+	db 33, POISON_JAB
 	db 37, BARRIER
 	db 42, SLUDGE_BOMB
 	db 47, SCREECH
@@ -1358,6 +1364,7 @@ CloysterEvosAttacks:
 	db 35, CLAMP
 	db 37, ICE_BEAM
 	db 40, SPIKE_CANNON
+	db 44, ICICLE_CRASH
 	db 50, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
@@ -1893,6 +1900,7 @@ MagmarEvosAttacks:
 	db 1, EMBER
 	db 1, LEER
 	db 1, SMOG
+	db 1, FLARE_BLITZ
 	db 17, FLAME_WHEEL
 	db 21, SMOKESCREEN
 	db 25, POISON_GAS
@@ -2193,6 +2201,7 @@ MoltresEvosAttacks:
 	db 1, WING_ATTACK
 	db 1, EMBER
 	db 1, AEROBLAST
+	db 1, FLARE_BLITZ
 	db 13, FIRE_SPIN
 	db 25, AGILITY
 	db 37, ENDURE
@@ -2335,6 +2344,7 @@ CyndaquilEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, LEER
+	db 1, FLARE_BLITZ
 	db 6, SMOKESCREEN
 	db 7, EMBER
 	db 16, DEFENSE_CURL
@@ -2352,6 +2362,7 @@ QuilavaEvosAttacks:
 	db 1, LEER
 	db 1, SMOKESCREEN
 	db 1, EMBER
+	db 1, FLARE_BLITZ
 	db 16, DEFENSE_CURL
 	db 21, QUICK_ATTACK
 	db 24, FLAME_WHEEL
@@ -2366,6 +2377,7 @@ TyphlosionEvosAttacks:
 	db 1, LEER
 	db 1, SMOKESCREEN
 	db 1, EMBER
+	db 1, FLARE_BLITZ
 	db 16, DEFENSE_CURL
 	db 21, QUICK_ATTACK
 	db 24, FLAME_WHEEL
@@ -2551,6 +2563,7 @@ AriadosEvosAttacks:
 	db 25, FURY_SWIPES
 	db 33, SPIDER_WEB
 	db 38, GIGA_DRAIN
+	db 40, POISON_JAB
 	db 43, PSYCHIC_M
 	db 47, MEGAHORN
 	db 53, AGILITY
@@ -3239,6 +3252,7 @@ SneaselEvosAttacks:
 	db 38, METAL_CLAW
 	db 41, AGILITY
 	db 43, SLASH
+	db 45, ICICLE_CRASH
 	db 47, BEAT_UP
 	db 51, BLIZZARD
 	db 0 ; no more level-up moves
@@ -3328,6 +3342,7 @@ PiloswineEvosAttacks:
 	db 33, FURY_ATTACK
 	db 39, EARTHQUAKE
 	db 42, MIST
+	db 47, ICICLE_CRASH
 	db 50, BLIZZARD
 	db 55, AMNESIA
 	db 0 ; no more level-up moves
@@ -3583,6 +3598,7 @@ MagbyEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, EMBER
 	db 1, LEER
+	db 1, FLARE_BLITZ
 	db 7, SMOG
 	db 17, FLAME_WHEEL
 	db 21, SMOKESCREEN
@@ -3639,6 +3655,8 @@ EnteiEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, BITE
 	db 1, LEER
+	db 1, SACRED_FIRE
+	db 1, FLARE_BLITZ
 	db 11, FLAME_WHEEL
 	db 21, STOMP
 	db 31, FLAMETHROWER
@@ -3725,6 +3743,7 @@ LugiaEvosAttacks:
 HoOhEvosAttacks:
 	db 0 ; no more evolutions
 	db 1,  GUST
+	db 1, FLARE_BLITZ
 	db 11, SAFEGUARD
 	db 22, RECOVER
 	db 33, SACRED_FIRE
