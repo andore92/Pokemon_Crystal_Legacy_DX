@@ -232,6 +232,7 @@ BeedrillEvosAttacks:
 	db 15, TWINEEDLE
 	db 18, PURSUIT
 	db 30, SWORDS_DANCE
+	db 35, POISON_JAB
 	db 40, AGILITY
 	db 0 ; no more level-up moves
 
