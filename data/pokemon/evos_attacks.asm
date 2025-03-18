@@ -3656,14 +3656,13 @@ EnteiEvosAttacks:
 	db 1, BITE
 	db 1, LEER
 	db 1, SACRED_FIRE
-	db 1, FLARE_BLITZ
 	db 11, FLAME_WHEEL
 	db 21, STOMP
 	db 31, FLAMETHROWER
 	db 41, CRUNCH
 	db 51, LIGHT_SCREEN
-	db 61, FIRE_BLAST
-	db 71, SWAGGER
+	db 61, FLARE_BLITZ
+	db 71, FIRE_BLAST
 	db 0 ; no more level-up moves
 
 SuicuneEvosAttacks:
@@ -3742,7 +3741,7 @@ LugiaEvosAttacks:
 
 HoOhEvosAttacks:
 	db 0 ; no more evolutions
-	db 1,  GUST
+	db 1, GUST
 	db 1, FLARE_BLITZ
 	db 11, SAFEGUARD
 	db 22, RECOVER
