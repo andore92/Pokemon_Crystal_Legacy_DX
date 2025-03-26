@@ -2345,8 +2345,8 @@ MeganiumEvosAttacks:
 CyndaquilEvosAttacks:
 	db EVOLVE_LEVEL, 14, QUILAVA
 	db 0 ; no more evolutions
-	db 1, TACKLE
-	db 1, LEER
+	db 1, ICICLE_CRASH
+	db 1, POISON_JAB
 	db 1, FLARE_BLITZ
 	db 6, SMOKESCREEN
 	db 7, EMBER
