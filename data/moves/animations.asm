@@ -4628,7 +4628,7 @@ BattleAnim_PoisonJab:
 	anim_obj ANIM_OBJ_POISON_GAS, 136, 56, $0
 	anim_wait 6
 	anim_loop 2, .loop
-	anim_sound 6, 2, SFX_PUNCH
+	anim_sound 6, 2, SFX_MEGA_PUNCH
 	anim_obj ANIM_OBJ_PUNCH_SHAKE, 136, 56, $0
 	anim_obj ANIM_OBJ_HIT, 136, 56, $0
 	anim_wait 16
