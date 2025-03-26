@@ -4600,7 +4600,7 @@ BattleAnim_BeatUp:
 
 BattleAnim_FlareBlitz:
 	anim_1gfx ANIM_GFX_FIRE
-	anim_bgeffect ANIM_BG_06, $0, $2, $0
+	anim_bgeffect ANIM_BG_ALTERNATE_HUES, $0, $2, $0
 .loop
 	anim_sound 0, 0, SFX_EMBER
 	anim_obj ANIM_OBJ_SACRED_FIRE, 48, 104, $0
@@ -4624,13 +4624,14 @@ BattleAnim_FlareBlitz:
 BattleAnim_PoisonJab:
 	anim_2gfx ANIM_GFX_HIT, ANIM_GFX_POISON
 	anim_sound 6, 2, SFX_SLUDGE_BOMB
-	anim_obj ANIM_OBJ_06, 136, 56, $0
-	anim_obj ANIM_OBJ_00, 136, 56, $0
+.loop
+	anim_obj ANIM_OBJ_POISON_GAS, 136, 56, $0
+	anim_obj ANIM_OBJ_HIT_SMALL, 136, 56, $0
 	anim_wait 6
-	anim_obj ANIM_OBJ_06, 136, 56, $0
+	anim_obj ANIM_OBJ_POISON_GAS, 136, 56, $0
 	anim_wait 6
 	anim_loop 3, .loop
-	anim_call BattleAnim_SludgeBomb_branch_cbc15
+	anim_call BattleAnim_SludgeBomb
 	anim_wait 32
 	anim_ret
 
@@ -4643,7 +4644,7 @@ BattleAnim_IcicleCrash:
 	anim_loop 3, .loop
 	anim_bgeffect ANIM_BG_WHITE_HUES, $0, $8, $0
 	anim_wait 32
-	anim_bgeffect ANIM_BG_1F, $60, $1, $0
+	anim_bgeffect ANIM_BG_SHAKE_SCREEN_Y, $60, $1, $0
 	anim_sound 0, 1, SFX_STRENGTH
 	anim_obj ANIM_OBJ_SMALL_ROCK, 128, 64, $40
 	anim_wait 2
