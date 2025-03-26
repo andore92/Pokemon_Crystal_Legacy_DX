@@ -232,6 +232,7 @@ BeedrillEvosAttacks:
 	db 15, TWINEEDLE
 	db 18, PURSUIT
 	db 30, SWORDS_DANCE
+	db 35, POISON_JAB
 	db 40, AGILITY
 	db 0 ; no more level-up moves
 
@@ -538,6 +539,7 @@ VulpixEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, EMBER
 	db 1, TAIL_WHIP
+	db 1, FLARE_BLITZ
 	db 7, QUICK_ATTACK
 	db 13, ROAR
 	db 16, CONFUSE_RAY
@@ -556,6 +558,7 @@ NinetalesEvosAttacks:
 	db 1, TAIL_WHIP
 	db 1, QUICK_ATTACK
 	db 1, ROAR
+	db 1, FLARE_BLITZ
 	db 16, CONFUSE_RAY
 	db 20, FLAME_WHEEL
 	db 25, SAFEGUARD
