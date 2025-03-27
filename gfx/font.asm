@@ -1,3 +1,5 @@
+SECTION "Font Graphics", ROMX
+
 Font:
 INCBIN "gfx/font/font.1bpp"
 
