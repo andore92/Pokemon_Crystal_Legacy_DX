@@ -1198,7 +1198,7 @@ PlaceMoveData:
 	farcall GetMoveCategoryName
 
 	; Temporarily load the full font into VRAM
-	call LoadStandardFontTiles
+	call _LoadStandardFontTiles
 	farcall LoadStandardFont
 
 	hlcoord 1, 11
