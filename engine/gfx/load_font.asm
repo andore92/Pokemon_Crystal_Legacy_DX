@@ -1,5 +1,8 @@
 INCLUDE "gfx/font.asm"
 
+Font:
+INCBIN "gfx/font/font.1bpp"
+
 EnableHDMAForGraphics:
 	db FALSE
 
