@@ -405,9 +405,9 @@ ChooseMoveToLearn::
 	ld de, wStringBuffer1
 	jp PlaceString
 
-.CategoryPhysical db "PHY@"
-.CategorySpecial  db "SPC@"
-.CategoryStatus   db "STA@"
+.CategoryPhysical db "PHYS@"
+.CategorySpecial  db "SPEC@"
+.CategoryStatus   db "STAT@"
 
 .Types
 	db "NRM@"
