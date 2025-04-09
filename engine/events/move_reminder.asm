@@ -323,41 +323,37 @@ ChooseMoveToLearn::
 	push de
 	dec a
 
-IF DEF(PSS)
-	ld bc, MOVE_LENGTH
-	ld hl, Moves + MOVE_CATEGORY
-	call AddNTimes
-	ld a, BANK(Moves)
-	call GetFarByte
-	and CATEGORY_MASK
-
-; bc = a * 4
-	add a
-	add a
-	ld b, 0
-	ld c, a
-	ld hl, .Types
-	add hl, bc
-	ld d, h
-	ld e, l
-	ld hl, wStringBuffer1
-	ld bc, 3
-	call PlaceString
-	ld hl, wStringBuffer1 + 3
-	ld [hl], "/"
-
-	ld a, [wMenuSelection]
-	dec a
-ENDC
-
 	ld bc, MOVE_LENGTH
 	ld hl, Moves + MOVE_TYPE
 	call AddNTimes
 	ld a, BANK(Moves)
 	call GetFarByte
-    ld [wTempByteValue], a ; ld [wd265], a
+	ld [wTempByteValue], a ; Store full type byte with PSS flags
 
-; bc = a * 4
+	ld b, a
+	and TYPE_MASK ; Isolate type index
+	ld [wTempSpecies], a ; For later use in .Types
+
+	ld a, b
+	and %11000000 ; Extract category bits
+	cp PHYSICAL
+	jr z, .is_physical
+	cp SPECIAL
+	jr z, .is_special
+	ld hl, .CategoryStatus
+	jr .got_category
+.is_physical
+	ld hl, .CategoryPhysical
+	jr .got_category
+.is_special
+	ld hl, .CategorySpecial
+.got_category
+	ld de, wStringBuffer1
+	ld bc, 4
+	call PlaceString
+
+	; Print type after category
+	ld a, [wTempSpecies] ; type index only
 	add a
 	add a
 	ld b, 0
@@ -367,39 +363,29 @@ ENDC
 	ld d, h
 	ld e, l
 	ld hl, wStringBuffer1 + 4
-	ld bc, 3
+	ld bc, 4
 	call PlaceString
-	ld hl, wStringBuffer1 + 7
+
+	ld hl, wStringBuffer1 + 8
 	ld [hl], "/"
 
+	; Print Power
 	ld a, [wMenuSelection]
 	dec a
-	
 	ld bc, MOVE_LENGTH
 	ld hl, Moves + MOVE_POWER
 	call AddNTimes
 	ld a, BANK(Moves)
 	call GetFarByte
-	ld hl, wStringBuffer1 + 8
-	and a
-	jr z, .no_power
-    ld [wTempByteValue], a ; ld [wBuffer1], a
-	ld de, wTempByteValue ; ld de, wBuffer1
+	ld [wTempByteValue], a
+	ld de, wTempByteValue
+	ld hl, wStringBuffer1 + 9
 	lb bc, 1, 3
 	call PrintNum
-	jr .got_power
-.no_power
-	ld de, .ThreeDashes
-	ld bc, 3
-	call PlaceString
-.got_power
-	ld hl, wStringBuffer1 + 11
+	ld hl, wStringBuffer1 + 12
 	ld [hl], "/"
 
-	ld a, [wMenuSelection]
-	dec a
-
-; Print PP (works)
+	; Print PP
 	ld a, [wMenuSelection]
 	dec a
 	ld bc, MOVE_LENGTH
@@ -407,21 +393,22 @@ ENDC
 	call AddNTimes
 	ld a, BANK(Moves)
 	call GetFarByte
-    ld [wTempByteValue], a ; ld [wBuffer1], a
-	ld hl, wStringBuffer1 + 12
-    ld de, wTempByteValue ; ld de, wBuffer1
+	ld [wTempByteValue], a
+	ld de, wTempByteValue
+	ld hl, wStringBuffer1 + 13
 	lb bc, 1, 2
 	call PrintNum
-	ld hl, wStringBuffer1 + 14
+	ld hl, wStringBuffer1 + 15
 	ld [hl], "@"
 
 	pop hl
 	ld de, wStringBuffer1
 	jp PlaceString
-	
-.ThreeDashes
-	db "---@"
-	
+
+.CategoryPhysical db "PHYS@"
+.CategorySpecial  db "SPEC@"
+.CategoryStatus   db "STAT@"
+
 .Types
 	db "NRM@"
 	db "FGT@"
@@ -452,6 +439,7 @@ ENDC
 	db "DRG@"
 	db "DRK@"
 	db "FRY@"
+
 
 .PrintMoveDesc
 	push de
