@@ -188,7 +188,7 @@ NewBarkTown_SilverReturnsToTheShadowsMovement:
 	step RIGHT
 	step_end
 
-MoveRelearner:
+NewBarkTown_MoveRelearner:
 	faceplayer
 	opentext
 	special MoveReminder
