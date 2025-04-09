@@ -188,6 +188,14 @@ NewBarkTown_SilverReturnsToTheShadowsMovement:
 	step RIGHT
 	step_end
 
+MoveRelearner:
+	faceplayer
+	opentext
+	special MoveReminder
+	waitbutton
+	closetext
+	end
+	
 Text_GearIsImpressive:
 	text "Wow, your #GEAR"
 	line "is impressive!"
