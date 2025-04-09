@@ -312,141 +312,133 @@ ChooseMoveToLearn::
 	jp PlaceString
 
 .PrintDetails
-    ld hl, wStringBuffer1
-    ld bc, 16
-    ld a, " "
-    call ByteFill
+	ld hl, wStringBuffer1
+	ld bc, wStringBuffer2 - wStringBuffer1
+	ld a, " "
+	call ByteFill
+	ld a, [wMenuSelection]
+	inc a
+	ret z
+	dec a
+	push de
+	dec a
 
-    ld a, [wMenuSelection]
-    inc a
-    ret z
-    dec a
-    push de
+	ld bc, MOVE_LENGTH
+	ld hl, Moves + MOVE_TYPE
+	call AddNTimes
+	ld a, BANK(Moves)
+	call GetFarByte
+	ld [wTempByteValue], a ; Store full type byte with PSS flags
 
-    ; Get the full type byte (with category flags)
-    ld bc, MOVE_LENGTH
-    ld hl, Moves + MOVE_TYPE
-    call AddNTimes
-    ld a, BANK(Moves)
-    call GetFarByte
-    ld [wTempByteValue], a ; full type
+	ld b, a
+	and TYPE_MASK ; Isolate type index
+	ld [wTempSpecies], a ; For later use in .Types
 
-    ld b, a
-    and TYPE_MASK ; type index only
-    ld [wTempSpecies], a ; for type string lookup
-
-    ld a, b
-    and %11000000 ; isolate category flags
-    cp PHYSICAL
-    jr z, .physical
-    cp SPECIAL
-    jr z, .special
-    ld hl, .CategoryStatus
-    jr .got_category
-.physical
-    ld hl, .CategoryPhysical
-    jr .got_category
-.special
-    ld hl, .CategorySpecial
+	ld a, b
+	and %11000000 ; Extract category bits
+	cp PHYSICAL
+	jr z, .is_physical
+	cp SPECIAL
+	jr z, .is_special
+	ld hl, .CategoryStatus
+	jr .got_category
+.is_physical
+	ld hl, .CategoryPhysical
+	jr .got_category
+.is_special
+	ld hl, .CategorySpecial
 .got_category
-    ld de, wStringBuffer1
-    ld bc, 4
-    call PlaceString
+	ld de, wStringBuffer1
+	ld bc, 4
+	call PlaceString
 
-    ; Add type string (from index in wTempSpecies)
-    ld a, [wTempSpecies]
-    add a
-    add a
-    ld c, a
-    ld b, 0
-    ld hl, .Types
-    add hl, bc
-    ld d, h
-    ld e, l
-    ld hl, wStringBuffer1 + 4
-    ld bc, 4
-    call PlaceString
+	; Print type after category
+	ld a, [wTempSpecies] ; type index only
+	add a
+	add a
+	ld b, 0
+	ld c, a
+	ld hl, .Types
+	add hl, bc
+	ld d, h
+	ld e, l
+	ld hl, wStringBuffer1 + 4
+	ld bc, 4
+	call PlaceString
 
-    ; Add "/"
-    ld hl, wStringBuffer1 + 8
-    ld [hl], "/"
+	ld hl, wStringBuffer1 + 8
+	ld [hl], "/"
 
-    ; Power
-    ld a, [wMenuSelection]
-    dec a
-    ld bc, MOVE_LENGTH
-    ld hl, Moves + MOVE_POWER
-    call AddNTimes
-    ld a, BANK(Moves)
-    call GetFarByte
-    ld [wTempByteValue], a
-    ld de, wTempByteValue
-    ld hl, wStringBuffer1 + 9
-    lb bc, 1, 3
-    call PrintNum
+	; Print Power
+	ld a, [wMenuSelection]
+	dec a
+	ld bc, MOVE_LENGTH
+	ld hl, Moves + MOVE_POWER
+	call AddNTimes
+	ld a, BANK(Moves)
+	call GetFarByte
+	ld [wTempByteValue], a
+	ld de, wTempByteValue
+	ld hl, wStringBuffer1 + 9
+	lb bc, 1, 3
+	call PrintNum
+	ld hl, wStringBuffer1 + 12
+	ld [hl], "/"
 
-    ; "/"
-    ld hl, wStringBuffer1 + 12
-    ld [hl], "/"
+	; Print PP
+	ld a, [wMenuSelection]
+	dec a
+	ld bc, MOVE_LENGTH
+	ld hl, Moves + MOVE_PP
+	call AddNTimes
+	ld a, BANK(Moves)
+	call GetFarByte
+	ld [wTempByteValue], a
+	ld de, wTempByteValue
+	ld hl, wStringBuffer1 + 13
+	lb bc, 1, 2
+	call PrintNum
+	ld hl, wStringBuffer1 + 15
+	ld [hl], "@"
 
-    ; PP
-    ld a, [wMenuSelection]
-    dec a
-    ld bc, MOVE_LENGTH
-    ld hl, Moves + MOVE_PP
-    call AddNTimes
-    ld a, BANK(Moves)
-    call GetFarByte
-    ld [wTempByteValue], a
-    ld de, wTempByteValue
-    ld hl, wStringBuffer1 + 13
-    lb bc, 1, 2
-    call PrintNum
-
-    ; End of string
-    ld hl, wStringBuffer1 + 15
-    ld [hl], "@"
-
-    pop hl
-    ld de, wStringBuffer1
-    jp PlaceString
+	pop hl
+	ld de, wStringBuffer1
+	jp PlaceString
 
 .CategoryPhysical db "PHY@"
 .CategorySpecial  db "SPC@"
 .CategoryStatus   db "STA@"
 
 .Types
-    db "NRM@"
-    db "FGT@"
-    db "FLY@"
-    db "PSN@"
-    db "GRD@"
-    db "RCK@"
-    db "BRD@"
-    db "BUG@"
-    db "GHT@"
-    db "STL@"
-    db "NRM@"
-    db "NRM@"
-    db "NRM@"
-    db "NRM@"
-    db "NRM@"
-    db "NRM@"
-    db "NRM@"
-    db "NRM@"
-    db "NRM@"
-    db "???@"
-    db "FIR@"
-    db "WTR@"
-    db "GRS@"
-    db "ELC@"
-    db "PSY@"
-    db "ICE@"
-    db "DRG@"
-    db "DRK@"
-    db "FRY@"
-
-
+	db "NRM@"
+	db "FGT@"
+	db "FLY@"
+	db "PSN@"
+	db "GRD@"
+	db "RCK@"
+	db "BRD@"
+	db "BUG@"
+	db "GHT@"
+	db "STL@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "???@"
+	db "FIR@"
+	db "WTR@"
+	db "GRS@"
+	db "ELC@"
+	db "PSY@"
+	db "ICE@"
+	db "DRG@"
+	db "DRK@"
+	db "FRY@"
 
 
 .PrintMoveDesc
