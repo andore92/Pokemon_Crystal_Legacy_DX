@@ -323,7 +323,7 @@ ChooseMoveToLearn::
     dec a
     push de
 
-    ; Get the full type byte from Moves table
+    ; Get the move type byte (with PSS flags)
     ld bc, MOVE_LENGTH
     ld hl, Moves + MOVE_TYPE
     call AddNTimes
@@ -331,27 +331,34 @@ ChooseMoveToLearn::
     call GetFarByte
     ld [wTempByteValue], a
 
-    ; Extract actual type (lower 6 bits)
+    ; Extract category bits
     ld b, a
     and TYPE_MASK
-    ld [wTempSpecies], a ; Save base type in wTempSpecies
+    ld [wTempSpecies], a ; actual type only
 
-    ; Extract and test category (upper 2 bits)
     ld a, b
     and %11000000
-    cp PHYSICAL
-    jr z, .physical
-    cp SPECIAL
-    jr z, .special
-.status
-    ld hl, .CategoryStatusDebug
-    jr .got_category
-.physical
-    ld hl, .CategoryPhysicalDebug
-    jr .got_category
-.special
-    ld hl, .CategorySpecialDebug
-.got_category
+    cp %01000000 ; PHYSICAL
+    jr z, .show_physical
+    cp %10000000 ; SPECIAL
+    jr z, .show_special
+    cp %11000000 ; STATUS
+    jr z, .show_status
+    jr .unknown
+
+.show_physical
+    ld hl, .ForcePHY
+    jr .write_cat
+.show_special
+    ld hl, .ForceSPC
+    jr .write_cat
+.show_status
+    ld hl, .ForceSTA
+    jr .write_cat
+.unknown
+    ld hl, .ForceUNK
+
+.write_cat
     ld de, wStringBuffer1
     ld bc, 3
     call PlaceString
@@ -360,7 +367,7 @@ ChooseMoveToLearn::
     ld hl, wStringBuffer1 + 3
     ld [hl], "/"
 
-    ; Place base type name
+    ; Add type
     ld a, [wTempSpecies]
     add a
     add a
@@ -382,9 +389,10 @@ ChooseMoveToLearn::
     ld de, wStringBuffer1
     jp PlaceString
 
-.CategoryPhysicalDebug db "P/?" ; Will show "P/???" for physical moves
-.CategorySpecialDebug  db "S/?" ; Will show "S/???" for special moves
-.CategoryStatusDebug   db "T/?" ; Will show "T/???" for status moves
+.ForcePHY db "PHY@"
+.ForceSPC db "SPC@"
+.ForceSTA db "STA@"
+.ForceUNK db "???@"
 
 .Types
 	db "NRM@"
