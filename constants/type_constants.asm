@@ -4,7 +4,7 @@
 ; - PokedexTypeSearchStrings (see data/types/search_strings.asm)
 ; - TypeMatchups (see data/types/type_matchups.asm)
 ; - TypeBoostItems (see data/types/type_boost_items.asm)
-const_def
+	const_def
 
 
 	const NORMAL
