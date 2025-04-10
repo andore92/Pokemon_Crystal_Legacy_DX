@@ -4,8 +4,7 @@
 ; - PokedexTypeSearchStrings (see data/types/search_strings.asm)
 ; - TypeMatchups (see data/types/type_matchups.asm)
 ; - TypeBoostItems (see data/types/type_boost_items.asm)
-const_def
-
+	const_def
 
 	const NORMAL
 	const FIGHTING
@@ -15,14 +14,13 @@ const_def
 	const ROCK
 	const BIRD
 	const BUG
-	const GHOST
+	const GHOST ; Ghost is made special whenever psysical/special checks are made, this preserves trade compatability
 	const STEEL
 
-DEF UNUSED_TYPES EQU const_value
+UNUSED_TYPES EQU const_value
 	const_next 19
 	const CURSE_TYPE
-DEF UNUSED_TYPES_END EQU const_value
-
+UNUSED_TYPES_END EQU const_value
 
 	const FIRE
 	const WATER
@@ -31,14 +29,14 @@ DEF UNUSED_TYPES_END EQU const_value
 	const PSYCHIC_TYPE
 	const ICE
 	const DRAGON
-	const DARK
-DEF TYPES_END EQU const_value
+	const DARK ; Dark is made physical whenever psysical/special checks are made, this preserves trade compatability
+TYPES_END EQU const_value
 
-DEF TYPE_MASK EQU %00111111
-DEF PHYSICAL  EQU %01000000
-DEF SPECIAL   EQU %10000000
-DEF STATUS    EQU %11000000
+TYPE_MASK EQU %00111111
+PHYSICAL  EQU %01000000
+SPECIAL   EQU %10000000
+STATUS    EQU %11000000
 
-DEF NUM_TYPES EQU TYPES_END + UNUSED_TYPES - UNUSED_TYPES_END - 1 ; discount BIRD
+NUM_TYPES EQU TYPES_END + UNUSED_TYPES - UNUSED_TYPES_END - 1 ; discount BIRD
 
-DEF POKEDEX_TYPE_STRING_LENGTH EQU 9
+POKEDEX_TYPE_STRING_LENGTH EQU 9
