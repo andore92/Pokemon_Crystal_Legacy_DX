@@ -312,108 +312,113 @@ ChooseMoveToLearn::
 	jp PlaceString
 
 .PrintDetails
-	ld hl, wStringBuffer1
-	ld bc, wStringBuffer2 - wStringBuffer1
-	ld a, " "
-	call ByteFill
-	
-	ld a, [wMenuSelection]
-	inc a
-	ret z
-	dec a
-	push de
-	
-	; Get full type byte (with category bits)
-	ld bc, MOVE_LENGTH
-	ld hl, Moves + MOVE_TYPE
-	call AddNTimes
-	ld a, BANK(Moves)
-	call GetFarByte
-	ld [wTempByteValue], a ; Save full byte
-	
-	ld b, a
-	and TYPE_MASK
-	ld [wTempSpecies], a ; Save type index
-	
-	; Extract category bits
-	ld a, b
-	and %11000000
-	cp PHYSICAL
-	jr z, .physical
-	cp SPECIAL
-	jr z, .special
-	ld hl, .CategoryStatus
-	jr .got_category
+    ld hl, wStringBuffer1
+    ld bc, 16
+    ld a, " "
+    call ByteFill
+
+    ld a, [wMenuSelection]
+    inc a
+    ret z
+    dec a
+    push de
+
+    ; Get full type byte
+    ld bc, MOVE_LENGTH
+    ld hl, Moves + MOVE_TYPE
+    call AddNTimes
+    ld a, BANK(Moves)
+    call GetFarByte
+    ld [wTempByteValue], a
+
+    ; Extract category
+    ld b, a
+    and TYPE_MASK
+    ld [wTempSpecies], a
+
+    ld a, b
+    and %11000000
+    cp PHYSICAL
+    jr z, .physical
+    cp SPECIAL
+    jr z, .special
+    ld hl, .CategoryStatus
+    jr .got_category
 .physical
-	ld hl, .CategoryPhysical
-	jr .got_category
+    ld hl, .CategoryPhysical
+    jr .got_category
 .special
-	ld hl, .CategorySpecial
+    ld hl, .CategorySpecial
 .got_category
-	ld de, wStringBuffer1
-	ld bc, 3
-	call PlaceString
-	
-	; Add slash
-	ld hl, wStringBuffer1 + 3
-	ld [hl], "/"
-	
-	; Add type text
-	ld a, [wTempSpecies]
-	add a
-	add a
-	ld b, 0
-	ld c, a
-	ld hl, .Types
-	add hl, bc
-	ld d, h
-	ld e, l
-	ld hl, wStringBuffer1 + 4
-	ld bc, 3
-	call PlaceString
-	
-	; Add slash
-	ld hl, wStringBuffer1 + 7
-	ld [hl], "/"
-	
-	; Print power
-	ld a, [wMenuSelection]
-	dec a
-	ld bc, MOVE_LENGTH
-	ld hl, Moves + MOVE_POWER
-	call AddNTimes
-	ld a, BANK(Moves)
-	call GetFarByte
-	ld [wTempByteValue], a
-	ld de, wTempByteValue
-	ld hl, wStringBuffer1 + 8
-	lb bc, 1, 3
-	call PrintNum
-	
-	; Print PP
-	ld a, [wMenuSelection]
-	dec a
-	ld bc, MOVE_LENGTH
-	ld hl, Moves + MOVE_PP
-	call AddNTimes
-	ld a, BANK(Moves)
-	call GetFarByte
-	ld [wTempByteValue], a
-	ld de, wTempByteValue
-	ld hl, wStringBuffer1 + 12
-	lb bc, 1, 2
-	call PrintNum
-	
-	ld hl, wStringBuffer1 + 14
-	ld [hl], "@"
-	
-	pop hl
-	ld de, wStringBuffer1
-	jp PlaceString
-	
-.CategoryPhysical db "PHY"
-.CategorySpecial  db "SPC"
-.CategoryStatus   db "STA"
+    ld de, wStringBuffer1
+    ld bc, 3
+    call PlaceString
+
+    ; Add slash
+    ld hl, wStringBuffer1 + 3
+    ld [hl], "/"
+
+    ; Add type text
+    ld a, [wTempSpecies]
+    add a
+    add a
+    ld c, a
+    ld b, 0
+    ld hl, .Types
+    add hl, bc
+    ld d, h
+    ld e, l
+    ld hl, wStringBuffer1 + 4
+    ld bc, 3
+    call PlaceString
+
+    ; Add slash
+    ld hl, wStringBuffer1 + 7
+    ld [hl], "/"
+
+    ; Power
+    ld a, [wMenuSelection]
+    dec a
+    ld bc, MOVE_LENGTH
+    ld hl, Moves + MOVE_POWER
+    call AddNTimes
+    ld a, BANK(Moves)
+    call GetFarByte
+    ld [wTempByteValue], a
+    ld de, wTempByteValue
+    ld hl, wStringBuffer1 + 8
+    lb bc, 1, 3
+    call PrintNum
+
+    ; Add slash
+    ld hl, wStringBuffer1 + 11
+    ld [hl], "/"
+
+    ; PP
+    ld a, [wMenuSelection]
+    dec a
+    ld bc, MOVE_LENGTH
+    ld hl, Moves + MOVE_PP
+    call AddNTimes
+    ld a, BANK(Moves)
+    call GetFarByte
+    ld [wTempByteValue], a
+    ld de, wTempByteValue
+    ld hl, wStringBuffer1 + 12
+    lb bc, 1, 2
+    call PrintNum
+
+    ; Null-terminate
+    ld hl, wStringBuffer1 + 14
+    ld [hl], "@"
+
+    pop hl
+    ld de, wStringBuffer1
+    jp PlaceString
+
+.CategoryPhysical db "PHY@"
+.CategorySpecial  db "SPC@"
+.CategoryStatus   db "STA@"
 	
 .Types
 	db "NRM@"
