@@ -335,7 +335,7 @@ ChooseMoveToLearn::
     ld hl, .CategoryPhysical ; you can change this to .CategorySpecial or .CategoryStatus to test
     ld de, wStringBuffer1
     ld bc, 3
-    call PlaceStrin
+    call PlaceString
 
     ; Add slash
     ld hl, wStringBuffer1 + 3
