@@ -312,11 +312,6 @@ ChooseMoveToLearn::
 	jp PlaceString
 
 .PrintDetails
-    ld hl, wStringBuffer1
-    ld bc, 16
-    ld a, " "
-    call ByteFill
-
     ld a, [wMenuSelection]
     inc a
     ret z
@@ -329,66 +324,16 @@ ChooseMoveToLearn::
     call AddNTimes
     ld a, BANK(Moves)
     call GetFarByte
-    ld [wTempByteValue], a
 
-    ; Extract category bits
-    ld b, a
-    and TYPE_MASK
-    ld [wTempSpecies], a ; actual type only
-
-    ld a, b
-    and %11000000
-    cp %01000000 ; PHYSICAL
-    jr z, .show_physical
-    cp %10000000 ; SPECIAL
-    jr z, .show_special
-    cp %11000000 ; STATUS
-    jr z, .show_status
-    jr .unknown
-
-.show_physical
-    ld hl, .ForcePHY
-    jr .write_cat
-.show_special
-    ld hl, .ForceSPC
-    jr .write_cat
-.show_status
-    ld hl, .ForceSTA
-    jr .write_cat
-.unknown
-    ld hl, .ForceUNK
-
-.write_cat
-    ld de, wStringBuffer1
-    ld bc, 3
-    call PlaceString
-
-    ; Add slash
-    ld hl, wStringBuffer1 + 3
-    ld [hl], "/"
-
-    ; Add type
-    ld a, [wTempSpecies]
-    add a
-    add a
-    ld c, a
-    ld b, 0
-    ld hl, .Types
-    add hl, bc
-    ld d, h
-    ld e, l
-    ld hl, wStringBuffer1 + 4
-    ld bc, 3
-    call PlaceString
-
-    ; Null-terminate
-    ld hl, wStringBuffer1 + 7
+    ld hl, wStringBuffer1
+    call PrintHexByte
     ld [hl], "@"
 
     pop hl
     ld de, wStringBuffer1
     jp PlaceString
 
+	
 .ForcePHY db "PHY@"
 .ForceSPC db "SPC@"
 .ForceSTA db "STA@"
@@ -469,3 +414,22 @@ Text_MoveReminderNoMon:
 Text_MoveReminderNoMoves:
 	text_far _MoveReminderNoMoves
     text_end
+
+; Converts byte in A to 2-digit hex string in HL
+PrintHexByte:
+    push af
+    swap a
+    call .printnibble
+    pop af
+    and $0f
+    ; fallthrough
+.printnibble
+    cp 10
+    jr c, .digit
+    add "A" - 10
+    jr .done
+.digit
+    add "0"
+.done
+    ld [hli], a
+    ret
