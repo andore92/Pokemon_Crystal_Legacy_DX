@@ -323,42 +323,47 @@ ChooseMoveToLearn::
     dec a
     push de
 
-    ; Get full type byte with flags
+    ; Get full type byte
     ld bc, MOVE_LENGTH
     ld hl, Moves + MOVE_TYPE
     call AddNTimes
     ld a, BANK(Moves)
     call GetFarByte
     ld [wTempByteValue], a
-    ld b, a
 
-    ; --- Category ---
+    ; Extract category
+    ld b, a
+    and TYPE_MASK
+    ld [wTempSpecies], a
+
+    ld a, b
     and %11000000
     cp PHYSICAL
-    jr z, .is_physical
+    jr z, .physical
     cp SPECIAL
-    jr z, .is_special
+    jr z, .special
     ld hl, .CategoryStatus
     jr .got_category
-.is_physical
+.physical
     ld hl, .CategoryPhysical
     jr .got_category
-.is_special
+.special
     ld hl, .CategorySpecial
 .got_category
     ld de, wStringBuffer1
     ld bc, 3
     call PlaceString
+
+    ; Add slash
     ld hl, wStringBuffer1 + 3
     ld [hl], "/"
 
-    ; --- Type ---
-    ld a, b
-    and TYPE_MASK
+    ; Add type text
+    ld a, [wTempSpecies]
     add a
     add a
-    ld b, 0
     ld c, a
+    ld b, 0
     ld hl, .Types
     add hl, bc
     ld d, h
@@ -366,10 +371,12 @@ ChooseMoveToLearn::
     ld hl, wStringBuffer1 + 4
     ld bc, 3
     call PlaceString
+
+    ; Add slash
     ld hl, wStringBuffer1 + 7
     ld [hl], "/"
 
-    ; --- Power ---
+    ; Power
     ld a, [wMenuSelection]
     dec a
     ld bc, MOVE_LENGTH
@@ -383,7 +390,11 @@ ChooseMoveToLearn::
     lb bc, 1, 3
     call PrintNum
 
-    ; --- PP ---
+    ; Add slash
+    ld hl, wStringBuffer1 + 11
+    ld [hl], "/"
+
+    ; PP
     ld a, [wMenuSelection]
     dec a
     ld bc, MOVE_LENGTH
@@ -393,52 +404,52 @@ ChooseMoveToLearn::
     call GetFarByte
     ld [wTempByteValue], a
     ld de, wTempByteValue
-    ld hl, wStringBuffer1 + 11
+    ld hl, wStringBuffer1 + 12
     lb bc, 1, 2
     call PrintNum
 
-    ; --- End of string ---
-    ld hl, wStringBuffer1 + 13
+    ; Null-terminate
+    ld hl, wStringBuffer1 + 14
     ld [hl], "@"
 
     pop hl
     ld de, wStringBuffer1
     jp PlaceString
 
-.CategoryPhysical db "PHY"
-.CategorySpecial  db "SPC"
-.CategoryStatus   db "STA"
-
+.CategoryPhysical db "PHY@"
+.CategorySpecial  db "SPC@"
+.CategoryStatus   db "STA@"
+	
 .Types
-    db "NRM"
-    db "FGT"
-    db "FLY"
-    db "PSN"
-    db "GRD"
-    db "RCK"
-    db "BRD"
-    db "BUG"
-    db "GHT"
-    db "STL"
-    db "NRM"
-    db "NRM"
-    db "NRM"
-    db "NRM"
-    db "NRM"
-    db "NRM"
-    db "NRM"
-    db "NRM"
-    db "NRM"
-    db "???"
-    db "FIR"
-    db "WTR"
-    db "GRS"
-    db "ELC"
-    db "PSY"
-    db "ICE"
-    db "DRG"
-    db "DRK"
-    db "FRY"
+	db "NRM@"
+	db "FGT@"
+	db "FLY@"
+	db "PSN@"
+	db "GRD@"
+	db "RCK@"
+	db "BRD@"
+	db "BUG@"
+	db "GHT@"
+	db "STL@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "???@"
+	db "FIR@"
+	db "WTR@"
+	db "GRS@"
+	db "ELC@"
+	db "PSY@"
+	db "ICE@"
+	db "DRG@"
+	db "DRK@"
+	db "FRY@"
 	
 
 .PrintMoveDesc
