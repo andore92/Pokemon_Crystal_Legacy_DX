@@ -323,7 +323,7 @@ ChooseMoveToLearn::
     dec a
     push de
 
-    ; Get full type byte (with category flags)
+    ; Get the move type byte (with PSS flags)
     ld bc, MOVE_LENGTH
     ld hl, Moves + MOVE_TYPE
     call AddNTimes
@@ -331,12 +331,11 @@ ChooseMoveToLearn::
     call GetFarByte
     ld [wTempByteValue], a
 
-    ; Extract type index
+    ; Extract category
     ld b, a
     and TYPE_MASK
-    ld [wTempSpecies], a
+    ld [wTempSpecies], a ; save actual type
 
-    ; Extract category
     ld a, b
     and %11000000
     cp PHYSICAL
@@ -355,11 +354,11 @@ ChooseMoveToLearn::
     ld bc, 3
     call PlaceString
 
-    ; Add "/"
+    ; Add slash
     ld hl, wStringBuffer1 + 3
     ld [hl], "/"
 
-    ; Type string
+    ; Add type
     ld a, [wTempSpecies]
     add a
     add a
@@ -373,7 +372,7 @@ ChooseMoveToLearn::
     ld bc, 3
     call PlaceString
 
-    ; End string
+    ; Null-terminate
     ld hl, wStringBuffer1 + 7
     ld [hl], "@"
 
