@@ -323,7 +323,7 @@ ChooseMoveToLearn::
     dec a
     push de
 
-    ; Get full type byte
+    ; Get full type byte (with category flags)
     ld bc, MOVE_LENGTH
     ld hl, Moves + MOVE_TYPE
     call AddNTimes
@@ -331,11 +331,12 @@ ChooseMoveToLearn::
     call GetFarByte
     ld [wTempByteValue], a
 
-    ; Extract category
+    ; Extract type index
     ld b, a
     and TYPE_MASK
     ld [wTempSpecies], a
 
+    ; Extract category
     ld a, b
     and %11000000
     cp PHYSICAL
@@ -354,11 +355,11 @@ ChooseMoveToLearn::
     ld bc, 3
     call PlaceString
 
-    ; Add slash
+    ; Add "/"
     ld hl, wStringBuffer1 + 3
     ld [hl], "/"
 
-    ; Add type text
+    ; Type string
     ld a, [wTempSpecies]
     add a
     add a
@@ -372,44 +373,8 @@ ChooseMoveToLearn::
     ld bc, 3
     call PlaceString
 
-    ; Add slash
+    ; End string
     ld hl, wStringBuffer1 + 7
-    ld [hl], "/"
-
-    ; Power
-    ld a, [wMenuSelection]
-    dec a
-    ld bc, MOVE_LENGTH
-    ld hl, Moves + MOVE_POWER
-    call AddNTimes
-    ld a, BANK(Moves)
-    call GetFarByte
-    ld [wTempByteValue], a
-    ld de, wTempByteValue
-    ld hl, wStringBuffer1 + 8
-    lb bc, 1, 3
-    call PrintNum
-
-    ; Add slash
-    ld hl, wStringBuffer1 + 11
-    ld [hl], "/"
-
-    ; PP
-    ld a, [wMenuSelection]
-    dec a
-    ld bc, MOVE_LENGTH
-    ld hl, Moves + MOVE_PP
-    call AddNTimes
-    ld a, BANK(Moves)
-    call GetFarByte
-    ld [wTempByteValue], a
-    ld de, wTempByteValue
-    ld hl, wStringBuffer1 + 12
-    lb bc, 1, 2
-    call PrintNum
-
-    ; Null-terminate
-    ld hl, wStringBuffer1 + 14
     ld [hl], "@"
 
     pop hl
