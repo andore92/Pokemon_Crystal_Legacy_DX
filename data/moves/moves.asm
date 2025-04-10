@@ -4,7 +4,8 @@ MACRO move
 	db \1 ; animation
 	db \2 ; effect
 	db \3 ; power
-	db (\4 | \5) ; type with PSS flag
+	db \4 ; type
+	db \5 ; category (PHYSICAL, SPECIAL, STATUS)
 	db \6 percent ; accuracy
 	db \7 ; pp
 	db \8 percent ; effect chance
