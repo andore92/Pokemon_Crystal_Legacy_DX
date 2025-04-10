@@ -323,7 +323,7 @@ ChooseMoveToLearn::
     dec a
     push de
 
-    ; Get the move type byte (with PSS flags)
+    ; Get the full type byte from Moves table
     ld bc, MOVE_LENGTH
     ld hl, Moves + MOVE_TYPE
     call AddNTimes
@@ -331,8 +331,27 @@ ChooseMoveToLearn::
     call GetFarByte
     ld [wTempByteValue], a
 
-	; hardcoded debug for display 
-    ld hl, .CategoryPhysical ; you can change this to .CategorySpecial or .CategoryStatus to test
+    ; Extract actual type (lower 6 bits)
+    ld b, a
+    and TYPE_MASK
+    ld [wTempSpecies], a ; Save base type in wTempSpecies
+
+    ; Extract and test category (upper 2 bits)
+    ld a, b
+    and %11000000
+    cp PHYSICAL
+    jr z, .physical
+    cp SPECIAL
+    jr z, .special
+.status
+    ld hl, .CategoryStatusDebug
+    jr .got_category
+.physical
+    ld hl, .CategoryPhysicalDebug
+    jr .got_category
+.special
+    ld hl, .CategorySpecialDebug
+.got_category
     ld de, wStringBuffer1
     ld bc, 3
     call PlaceString
@@ -341,7 +360,7 @@ ChooseMoveToLearn::
     ld hl, wStringBuffer1 + 3
     ld [hl], "/"
 
-    ; Add type
+    ; Place base type name
     ld a, [wTempSpecies]
     add a
     add a
@@ -363,10 +382,10 @@ ChooseMoveToLearn::
     ld de, wStringBuffer1
     jp PlaceString
 
-.CategoryPhysical db "PHY@"
-.CategorySpecial  db "SPC@"
-.CategoryStatus   db "STA@"
-	
+.CategoryPhysicalDebug db "P/?" ; Will show "P/???" for physical moves
+.CategorySpecialDebug  db "S/?" ; Will show "S/???" for special moves
+.CategoryStatusDebug   db "T/?" ; Will show "T/???" for status moves
+
 .Types
 	db "NRM@"
 	db "FGT@"
