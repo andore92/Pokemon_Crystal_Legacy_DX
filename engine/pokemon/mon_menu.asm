@@ -1179,27 +1179,44 @@ PrepareToPlaceMoveData:
 PlaceMoveData:
 	xor a
 	ldh [hBGMapMode], a
+
 	hlcoord 0, 10
 	ld de, String_MoveType_Top
 	call PlaceString
+
 	hlcoord 0, 11
 	ld de, String_MoveType_Bottom
 	call PlaceString
+
 	hlcoord 12, 12
 	ld de, String_MoveAtk
 	call PlaceString
+
+	; Get category name of the move in wCurSpecies
 	ld a, [wCurSpecies]
 	ld b, a
 	farcall GetMoveCategoryName
+
+	; Load standard font for text rendering
+	farcall LoadStandardFont
+
+	; Print category at (1, 11)
 	hlcoord 1, 11
 	ld de, wStringBuffer1
-	call PlaceString	
+	call PlaceString
+
+	; Restore battle font
+	farcall LoadFontsBattleExtra
+
+	; Print move type next to category (at 1, 12)
 	ld a, [wCurSpecies]
 	ld b, a
 	hlcoord 1, 12
 	ld [hl], "/"
 	inc hl
 	predef PrintMoveType
+
+	; Print move power at (16, 12)
 	ld a, [wCurSpecies]
 	dec a
 	ld hl, Moves + MOVE_POWER
@@ -1207,6 +1224,7 @@ PlaceMoveData:
 	call AddNTimes
 	ld a, BANK(Moves)
 	call GetFarByte
+
 	hlcoord 16, 12
 	cp 2
 	jr c, .no_power
@@ -1215,6 +1233,17 @@ PlaceMoveData:
 	lb bc, 1, 3
 	call PrintNum
 	jr .description
+
+.no_power
+	ld de, String_MoveNoPower
+	call PlaceString
+
+.description
+	hlcoord 1, 14
+	predef PrintMoveDescription
+	ld a, $1
+	ldh [hBGMapMode], a
+	ret
 
 .no_power
 	ld de, String_MoveNoPower
