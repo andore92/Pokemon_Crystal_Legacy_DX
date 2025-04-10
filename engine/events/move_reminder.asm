@@ -318,57 +318,65 @@ ChooseMoveToLearn::
 	call ByteFill
 	
 	ld a, [wMenuSelection]
-	cp $ff
+	inc a
 	ret z
 	dec a
 	push de
 	
-	; Get the type byte (which includes category flags)
+	; Get full type byte (with category bits)
 	ld bc, MOVE_LENGTH
 	ld hl, Moves + MOVE_TYPE
 	call AddNTimes
 	ld a, BANK(Moves)
 	call GetFarByte
-	ld [wTempByteValue], a
+	ld [wTempByteValue], a ; Save full byte
 	
 	ld b, a
 	and TYPE_MASK
-	ld [wTempSpecies], a
+	ld [wTempSpecies], a ; Save type index
 	
-	; Category determination
+	; Extract category bits
 	ld a, b
 	and %11000000
 	cp PHYSICAL
-	jr z, .phys
+	jr z, .physical
 	cp SPECIAL
-	jr z, .spec
-	ld hl, .CatStatus
-	jr .got_cat
-.phys
-	ld hl, .CatPhys
-	jr .got_cat
-.spec
-	ld hl, .CatSpec
-.got_cat
+	jr z, .special
+	ld hl, .CategoryStatus
+	jr .got_category
+.physical
+	ld hl, .CategoryPhysical
+	jr .got_category
+.special
+	ld hl, .CategorySpecial
+.got_category
 	ld de, wStringBuffer1
-	ld bc, 4
+	ld bc, 3
 	call PlaceString
 	
-	; Add type
+	; Add slash
+	ld hl, wStringBuffer1 + 3
+	ld [hl], "/"
+	
+	; Add type text
 	ld a, [wTempSpecies]
 	add a
 	add a
-	ld c, a
 	ld b, 0
+	ld c, a
 	ld hl, .Types
 	add hl, bc
 	ld d, h
 	ld e, l
 	ld hl, wStringBuffer1 + 4
-	ld bc, 4
+	ld bc, 3
 	call PlaceString
 	
-	; Power
+	; Add slash
+	ld hl, wStringBuffer1 + 7
+	ld [hl], "/"
+	
+	; Print power
 	ld a, [wMenuSelection]
 	dec a
 	ld bc, MOVE_LENGTH
@@ -382,7 +390,7 @@ ChooseMoveToLearn::
 	lb bc, 1, 3
 	call PrintNum
 	
-	; PP
+	; Print PP
 	ld a, [wMenuSelection]
 	dec a
 	ld bc, MOVE_LENGTH
@@ -403,9 +411,9 @@ ChooseMoveToLearn::
 	ld de, wStringBuffer1
 	jp PlaceString
 	
-.CatPhys  db "PHY@"
-.CatSpec  db "SPC@"
-.CatStatus db "STA@"
+.CategoryPhysical db "PHY"
+.CategorySpecial  db "SPC"
+.CategoryStatus   db "STA"
 	
 .Types
 	db "NRM@"
@@ -418,15 +426,15 @@ ChooseMoveToLearn::
 	db "BUG@"
 	db "GHT@"
 	db "STL@"
-	db "???@"
-	db "???@"
-	db "???@"
-	db "???@"
-	db "???@"
-	db "???@"
-	db "???@"
-	db "???@"
-	db "???@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
+	db "NRM@"
 	db "???@"
 	db "FIR@"
 	db "WTR@"
