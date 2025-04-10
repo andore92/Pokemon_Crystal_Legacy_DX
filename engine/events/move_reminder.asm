@@ -331,28 +331,11 @@ ChooseMoveToLearn::
     call GetFarByte
     ld [wTempByteValue], a
 
-    ; Extract category
-    ld b, a
-    and TYPE_MASK
-    ld [wTempSpecies], a ; save actual type
-
-    ld a, b
-    and %11000000
-    cp PHYSICAL
-    jr z, .physical
-    cp SPECIAL
-    jr z, .special
-    ld hl, .CategoryStatus
-    jr .got_category
-.physical
-    ld hl, .CategoryPhysical
-    jr .got_category
-.special
-    ld hl, .CategorySpecial
-.got_category
+	; hardcoded debug for display 
+    ld hl, .CategoryPhysical ; you can change this to .CategorySpecial or .CategoryStatus to test
     ld de, wStringBuffer1
     ld bc, 3
-    call PlaceString
+    call PlaceStrin
 
     ; Add slash
     ld hl, wStringBuffer1 + 3
