@@ -1193,20 +1193,19 @@ PlaceMoveData:
 	ld de, String_MoveAtk
 	call PlaceString
 
-	; Get move category (Physical, Special, Status)
 	ld a, [wCurSpecies]
 	ld b, a
 	farcall GetMoveCategoryName
 
-	; Load standard font to render text like "PHY/SPC/STA"
+	; Temporarily load the full font into VRAM
+	call LoadStandardFontTiles
 	farcall LoadStandardFont
 
-	; Place the category name at (1, 11)
 	hlcoord 1, 11
 	ld de, wStringBuffer1
 	call PlaceString
 
-	; Restore battle font for rest of UI
+	; Restore battle font
 	farcall LoadFontsBattleExtra
 
 	; Print type next to category (1, 12)
