@@ -300,3 +300,8 @@ NUM_BATTLE_ANIMS EQU const_value - 1
 	const BATTLEANIM_WOBBLE
 	const BATTLEANIM_SHAKE
 	const BATTLEANIM_HIT_CONFUSION
+
+; New definitions for extracting the combined move type/category field
+MOVE_TYPE_MASK     EQU 0x0F       ; Lower 4 bits for move type
+MOVE_CATEGORY_MASK EQU 0xF0       ; Upper 4 bits for move category
+MOVE_CATEGORY_SHIFT EQU 4          ; Shift the upper nibble right by 4 bits
