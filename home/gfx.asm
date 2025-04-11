@@ -390,3 +390,11 @@ Copy1bpp::
 
 	pop hl
 	jp FarCopyBytesDouble
+
+LoadStandardFontTiles:
+	ld hl, Font         ; Font is defined in gfx/font/font.asm
+	ld de, vFont        ; VRAM destination for font tiles
+	ld bc, $800         ; 2KB = 128 tiles = full 1bpp font
+	ld a, BANK(Font)
+	call FarCopyBytes
+	ret	
