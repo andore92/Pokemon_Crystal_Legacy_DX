@@ -1,29 +1,24 @@
-;---------------------------------------------------------------------
-; event/move_reminder.asm
-;---------------------------------------------------------------------
-; Include our battle structure constants and the new move definitions.
-INCLUDE "constants/battle_constants.asm"
-INCLUDE "constants/move_constants.asm"
+;--------------------------------------------------------------
+; Revised move_reminder.asm
+; Based on an old commit of Rangi's Polished Crystal (which itself was
+; based on TPP Anniversary Crystal) with modifications to display both
+; the move category and move type from the merged move field.
+; (Each move entry now is 7 bytes long, and the byte at offset 3 contains
+; the lower nibble as the move type and the upper nibble as the move category.)
+;--------------------------------------------------------------
 
-; Based on an old commit of Rangi's Polished Crystal, which was in turn based off TPP Anniversary Crystal
-; https://github.com/Rangi42/polishedcrystal/blob/39bf603531d74254e7ab2740677d38ec3ef9b6bd/event/move_reminder.asm
-; https://github.com/TwitchPlaysPokemon/tppcrystal251pub/blob/public/event/move_relearner.asm
-
-EggMoveReminder::
-    ld hl, Text_EggMoveReminderIntro
-    call RemindStart
-    ret c
-    call GetEggRemindableMoves
-    jp ReminderGotMove
-
-MoveReminder::
+MoveReminder:
     ld hl, Text_MoveReminderIntro
-    call RemindStart
-    ret c
-    call GetRemindableMoves
-    jp ReminderGotMove
+    call PrintText
+    call JoyWaitAorB
 
-RemindStart:
+    ld a, GOLD_LEAF
+    ld [CurItem], a
+    ld hl, NumItems
+    call CheckItem
+    jp nc, .no_gold_leaf
+
+    ld hl, Text_MoveReminderPrompt
     call PrintText
     call YesNoBox
     jp c, .cancel
@@ -32,30 +27,18 @@ RemindStart:
     call PrintText
     call JoyWaitAorB
 
-    farcall SelectMonFromParty
+    ld b, $6
+    callba SelectMonFromParty
     jr c, .cancel
 
-    ld a, [wCurPartySpecies]
+    ld a, [CurPartySpecies]
     cp EGG
     jr z, .egg
 
     call IsAPokemon
     jr c, .no_mon
-    ret
-.cancel:
-    ld hl, Text_MoveReminderCancel
-    jr .done
-.egg:
-    ld hl, Text_MoveReminderEgg
-    jr .done
-.no_mon:
-    ld hl, Text_MoveReminderNoMon
-.done:  
-    call PrintText
-    scf
-    ret
 
-ReminderGotMove:
+    call GetRemindableMoves
     jr z, .no_moves
 
     ld hl, Text_MoveReminderWhichMove
@@ -65,78 +48,114 @@ ReminderGotMove:
     call ChooseMoveToLearn
     jr c, .skip_learn
 
-    ld a, [wMenuSelection]
-    ld [wTempByteValue], a   ; alternatively: ld [wd265], a
+    ld a, [MenuSelection]
+    ld [wd265], a
     call GetMoveName
-    ld hl, wStringBuffer1
-    ld de, wStringBuffer2
-    ld bc, wStringBuffer2 - wStringBuffer1
+    ld hl, StringBuffer1
+    ld de, StringBuffer2
+    ld bc, StringBuffer2 - StringBuffer1
     call CopyBytes
     ld b, 0
     predef LearnMove
     ld a, b
     and a
     jr z, .skip_learn
-    ; fallthrough:
+
+    ld a, GOLD_LEAF
+    ld [CurItem], a
+    ld a, 1
+    ld [wItemQuantityChangeBuffer], a
+    ld a, -1
+    ld [CurItemQuantity], a
+    ld hl, NumItems
+    call TossItem
+
+    ld de, SFX_TRANSACTION
+    call PlaySFX
+    call WaitSFX
+
 .skip_learn:
-    call ReturnToMapWithSpeechTextbox
+    call CloseSubmenu
+    call SpeechTextBox
+.cancel:
     ld hl, Text_MoveReminderCancel
-    jp PrintText
+    call PrintText
+    ret
+
+.egg:
+    ld hl, Text_MoveReminderEgg
+    call PrintText
+    ret
+
+.no_gold_leaf:
+    ld hl, Text_MoveReminderNoGoldLeaf
+    call PrintText
+    ret
+
+.no_mon:
+    ld hl, Text_MoveReminderNoMon
+    call PrintText
+    ret
 
 .no_moves:
     ld hl, Text_MoveReminderNoMoves
-    jp PrintText
+    call PrintText
+    ret
 
-
-GetRemindableMoves::
-; Get moves remindable by CurPartyMon
-; Returns z if no moves can be reminded.
+;--------------------------------------------------------------
+; GetRemindableMoves
+; (This subroutine is unchanged from TPP’s version.)
+;--------------------------------------------------------------
+GetRemindableMoves:
+    GLOBAL EvosAttacksPointers, EvosAttacks
     ld hl, wd002
     xor a
     ld [hli], a
-    ld [hl], $ff
+    ld [hl], $FF
 
     ld a, MON_SPECIES
     call GetPartyParamLocation
     ld a, [hl]
-    ld [wCurPartySpecies], a
+    ld [CurPartySpecies], a
 
     push af
     ld a, MON_LEVEL
     call GetPartyParamLocation
     ld a, [hl]
-    ld [wCurPartyLevel], a
+    ld [CurPartyLevel], a
 
     ld b, 0
     ld de, wd002 + 1
-
-; Based on GetEggMove in engine/pokemon/breeding/egg.asm
-    ld a, [wCurPartySpecies]
+; Based on GetEggMove in engine/breeding/egg.asm:
+.loop
+    ld a, [CurPartySpecies]
     dec a
     push bc
+    ld b, 0
     ld c, a
     ld hl, EvosAttacksPointers
+rept 2
     add hl, bc
-    add hl, bc
+endr
     ld a, BANK(EvosAttacksPointers)
-    call GetFarWord
+    call GetFarHalfword
 .skip_evos:
-    ld a, BANK("Evolutions and Attacks")
+    ld a, BANK(EvosAttacks)
     call GetFarByte
     inc hl
     and a
     jr nz, .skip_evos
 
 .loop_moves:
-    ld a, BANK("Evolutions and Attacks")
+    ld a, BANK(EvosAttacks)
     call GetFarByte
     inc hl
     and a
     jr z, .done
     ld c, a
-    ld a, [wCurPartyLevel]
+    ld a, [CurPartyLevel]
     cp c
-    ld a, BANK("Evolutions and Attacks")
+    ld a, BANK(EvosAttacks)
     call GetFarByte
     inc hl
     jr c, .loop_moves
@@ -149,7 +168,7 @@ GetRemindableMoves::
     ld a, c
     ld [de], a
     inc de
-    ld a, $ff
+    ld a, $FF
     ld [de], a
     pop bc
     inc b
@@ -159,36 +178,36 @@ GetRemindableMoves::
 .done:
     pop bc
     pop af
-    ld [wCurPartySpecies], a
+    ld [CurPartySpecies], a
     ld a, b
     ld [wd002], a
     and a
     ret
 
+;--------------------------------------------------------------
+; GetEggRemindableMoves is similar to GetRemindableMoves, with minor differences.
+;--------------------------------------------------------------
 GetEggRemindableMoves:
-; Get moves remindable by CurPartyMon
-; Returns z if no moves can be reminded.
     ld hl, wd002
     xor a
     ld [hli], a
-    ld [hl], $ff
+    ld [hl], $FF
 
     ld a, MON_SPECIES
     call GetPartyParamLocation
     ld a, [hl]
-    ld [wCurPartySpecies], a
+    ld [CurPartySpecies], a
 
     push af
     ld a, MON_LEVEL
     call GetPartyParamLocation
     ld a, [hl]
-    ld [wCurPartyLevel], a
+    ld [CurPartyLevel], a
 
     ld b, 0
     ld de, wd002 + 1
 
-; Based on GetEggMove in engine/pokemon/breeding/egg.asm
-    ld a, [wCurPartySpecies]
+    ld a, [CurPartySpecies]
     dec a
     push bc
     ld c, a
@@ -213,7 +232,7 @@ GetEggRemindableMoves:
     ld a, c
     ld [de], a
     inc de
-    ld a, $ff
+    ld a, $FF
     ld [de], a
     pop bc
     inc b
@@ -223,20 +242,22 @@ GetEggRemindableMoves:
 .done:
     pop bc
     pop af
-    ld [wCurPartySpecies], a
+    ld [CurPartySpecies], a
     ld a, b
     ld [wd002], a
     and a
     ret
 
-CheckAlreadyInList::
+;--------------------------------------------------------------
+; CheckAlreadyInList and CheckPokemonAlreadyKnowsMove remain unchanged.
+;--------------------------------------------------------------
+CheckAlreadyInList:
     push hl
     ld hl, wd002 + 1
 .loop:
     ld a, [hli]
-    inc a
+    cp $FF
     jr z, .nope
-    dec a
     cp c
     jr nz, .loop
     pop hl
@@ -247,7 +268,7 @@ CheckAlreadyInList::
     and a
     ret
 
-CheckPokemonAlreadyKnowsMove::
+CheckPokemonAlreadyKnowsMove:
     push hl
     push bc
     ld a, MON_MOVES
@@ -269,23 +290,24 @@ CheckPokemonAlreadyKnowsMove::
     scf
     ret
 
-ChooseMoveToLearn::
-; Number of items stored in wd002
-; List of items stored in wd002 + 1
+;--------------------------------------------------------------
+; ChooseMoveToLearn (mostly unchanged)
+;--------------------------------------------------------------
+ChooseMoveToLearn:
     call FadeToMenu
-    farcall BlankScreen
+    callba BlankScreen
     call UpdateSprites
-    ld hl, .MenuHeader
-    call CopyMenuHeader
+    ld hl, .MenuDataHeader
+    call CopyMenuDataHeader
     xor a
-    ld [wMenuCursorPosition], a
+    ld [wMenuCursorBuffer], a
     ld [wMenuScrollPosition], a
     call ScrollingMenu
-    call SpeechTextbox
+    call SpeechTextBox
     ld a, [wMenuJoypad]
     cp B_BUTTON
     jr z, .carry
-    ld a, [wMenuSelection]
+    ld a, [MenuSelection]
     ld [wPutativeTMHMMove], a
     and a
     ret
@@ -293,172 +315,169 @@ ChooseMoveToLearn::
     scf
     ret
 
-.MenuHeader:
-    db MENU_BACKUP_TILES       ; flags
-    menu_coords 1, 1, SCREEN_WIDTH - 1, 11
-    dw .MenuData
-    db 1                      ; default option
+.MenuDataHeader:
+    db $40                ; flags
+    db 01, 01             ; start coords
+    db 11, 19             ; end coords
+    dw .menudata2
+    db 1                  ; default option
 
-.MenuData:
-    db SCROLLINGMENU_DISPLAY_ARROWS | SCROLLINGMENU_ENABLE_FUNCTION3  ; item format
-    db 5, SCREEN_WIDTH + 2    ; rows, columns
-    db SCROLLINGMENU_ITEMS_NORMAL
-    ; dba  wd002
-    dba  wd002
+.menudata2:
+    db $30                ; pointers
+    db 5, 8              ; rows, columns
+    db 1                 ; horizontal spacing
+    dbw 0, wd002
     dba .PrintMoveName
     dba .PrintDetails
     dba .PrintMoveDesc
 
 .PrintMoveName:
     push de
-    ld a, [wMenuSelection]
-    ld [wTempByteValue], a   ; or: ld [wd265], a
+    ld a, [MenuSelection]
+    ld [wd265], a
     call GetMoveName
     pop hl
-    jp PlaceString
+    call PlaceString
+    ret
 
-;---------------------------------------------------------------------
-; Revised .PrintDetails subroutine:
-; This version extracts the combined move type/category field (at offset 3)
-; and displays the move category (from .Classes) and the move type (from .Types).
-; It then prints move power (offset 2) and PP (offset 5).
-;---------------------------------------------------------------------
+;--------------------------------------------------------------
+; .PrintDetails – Revised for merged move type/category.
+;--------------------------------------------------------------
 .PrintDetails:
-    ; Clear the temporary string buffer (wStringBuffer1)
-    ld hl, wStringBuffer1
-    ld bc, wStringBuffer2 - wStringBuffer1
-    ld a, ' '
+    ld hl, StringBuffer1
+    ld bc, StringBuffer2 - StringBuffer1
+    ld a, " "           ; fill with a space
     call ByteFill
 
-    ; Check if selection is valid
-    ld a, [wMenuSelection]
-    inc a
+    ld a, [MenuSelection]
+    cp $FF
     ret z
+    push de
     dec a
-
-    ; Compute pointer to the move entry:
-    ld bc, MOVE_LENGTH       ; MOVE_LENGTH should be 7 in the new format
+    ld bc, MOVE_LENGTH        ; MOVE_LENGTH should be 7 now.
     ld hl, Moves
-    call AddNTimes           ; HL now points to the selected move entry
-    ; Save the pointer for later use in a temporary word storage.
-    ld [wTempWord], hl
+    call AddNTimes            ; HL now points to the selected move entry.
+    ld [wdTempWord], hl       ; save move pointer in wdTempWord
 
-    ; --- Extract the combined move type/category field ---
-    ld hl, [wTempWord]
-    add hl, 3                ; Offset 3 holds the combined field
-    ld a, [hl]              ; A = combined move type/category
-    push af               ; Save combined value for later
+    ;--- Extract the combined move type/category field from offset 3 ---
+    ld hl, Moves + 3          ; offset 3 holds the combined field.
+    call AddNTimes            ; adjust HL for the selected move (if required)
+    ld hl, [wdTempWord]       ; reload the move pointer
+    add hl, 3
+    ld a, [hl]               ; A = combined move field
+    push af                ; save combined field
 
-    ; --- Extract and print move category ---
-    ld hl, [wTempWord]
+    ;--- Extract and print move category ---
+    ld hl, [wdTempWord]
     add hl, 3
     ld a, [hl]
-    and MOVE_CATEGORY_MASK   ; Isolate the upper nibble (move category bits)
-    swap a                  ; Swap nibbles so that the category index is in the lower nibble
-    ; Multiply the index by the string length; assume each category string is 4 bytes.
-    add a                   ; a = 2 * category index
-    add a                   ; a = 4 * category index
+    and $F0                ; isolate upper nibble (move category bits)
+    swap a                 ; swap nibbles so that category index is in lower nibble
+    add a                  ; a = a * 2
+    add a                  ; now a = a * 4 (assuming each class abbreviation is 4 bytes)
     ld b, 0
     ld c, a
-    ld hl, .Classes         ; Pointer to move category strings (e.g., "Phys", "Spcl", "Stat")
+    ld hl, .Classes         ; pointer to category strings (e.g. "Phys@", "Spcl@", "Stat@")
     add hl, bc
-    ld de, wStringBuffer1   ; Destination: start of the display string
-    ld bc, 4                ; Copy 4 bytes (adjust if your entries are longer)
-    call CopyBytes          ; Copy category abbreviation into the buffer
-    ; Append a slash after the category
-    ld hl, wStringBuffer1 + 4
-    ld [hl], '/'
+    ld de, StringBuffer1
+    ld bc, 4
+    call CopyBytes          ; copy category abbreviation into buffer
+    ld hl, StringBuffer1 + 4
+    ld [hl], "/"           ; append slash
 
-    ; --- Extract and print move type ---
-    pop af                  ; Retrieve the combined field back (A now has the full combined byte)
-    and MOVE_TYPE_MASK      ; Now A = move type index (lower nibble)
-    ; Multiply type index by the string length; assume each type abbreviation is 4 bytes.
-    add a
-    add a                   ; a = 4 * move type index
+    ;--- Extract and print move type ---
+    pop af                 ; retrieve combined field
+    and $0F               ; isolate lower nibble (move type index)
+    add a                 ; multiply by 2
+    add a                 ; now a = (move type index)*4 (if each type is 4 bytes)
     ld b, 0
     ld c, a
-    ld hl, .Types           ; Pointer to move type strings (e.g., "NRM", "FGT", "FLY", etc.)
+    ld hl, .Types         ; pointer to type strings (e.g. "Normal@", " Fight@", etc.)
     add hl, bc
-    ld de, wStringBuffer1 + 5 ; Place type string at offset 5 (after category and slash)
-    ld bc, 4                ; Copy 4 bytes (adjust if needed)
-    call CopyBytes
-    ; Append a slash after the type abbreviation
-    ld hl, wStringBuffer1 + 9
-    ld [hl], '/'
+    ld de, StringBuffer1 + 5
+    ld bc, 4
+    call CopyBytes          ; copy type abbreviation into buffer
+    ld hl, StringBuffer1 + 9
+    ld [hl], "/"           ; append slash
 
-    ; --- Print move power ---
-    ld hl, [wTempWord]      ; Reload the move entry pointer
-    add hl, 2               ; Move power is at offset 2
-    ld a, [hl]             ; Get move power
-    ld [EngineBuffer1], a
-    ld hl, wStringBuffer1 + 10
-    ld de, EngineBuffer1
-    ld bc, 2                ; Print as a 2-digit number (adjust if necessary)
-    call PrintNum
-
-    ; --- Print move PP ---
-    ld hl, [wTempWord]      ; Reload move entry pointer
-    add hl, 5               ; PP is at offset 5
+    ;--- Print move power (stored at offset 2) ---
+    ld hl, [wdTempWord]
+    add hl, 2
     ld a, [hl]
-    ld [wTempByteValue], a
-    ld hl, wStringBuffer1 + 12
-    ld de, wTempByteValue
-    ld bc, 2                ; Print PP in a 2-digit field
+    ld [EngineBuffer1], a
+    ld hl, StringBuffer1 + 10
+    ld de, EngineBuffer1
+    ld bc, 2
     call PrintNum
 
-    ; Append a terminating symbol (e.g., "@")
-    ld hl, wStringBuffer1 + 14
-    ld [hl], '@'
+    ;--- Print move PP (stored at offset 5) ---
+    ld hl, [wdTempWord]
+    add hl, 5
+    ld a, [hl]
+    ld [wdTempByteValue], a
+    ld hl, StringBuffer1 + 12
+    ld de, wdTempByteValue
+    ld bc, 2
+    call PrintNum
 
-    ; Output the constructed move detail string.
-    ld hl, wStringBuffer1
+    ld hl, StringBuffer1 + 14
+    ld [hl], "@"
+    pop hl
+    ld de, StringBuffer1
     jp PlaceString
-;---------------------------------------------------------------------
-; End .PrintDetails subroutine
-;---------------------------------------------------------------------
 
 .Types:
-    db "NRM@", "FGT@", "FLY@", "PSN@", "GRD@", "RCK@", "BRD@", "BUG@"
-    db "GHT@", "STL@", "NRM@", "NRM@", "NRM@", "NRM@", "NRM@", "NRM@"
-    db "NRM@", "NRM@", "NRM@", "???@", "FIR@", "WTR@", "GRS@", "ELC@"
-    db "PSY@", "ICE@", "DRG@", "DRK@", "FRY@"
+    db "Normal@", " Fight@", "Flying@", "Poison@", "Ground@", "  Rock@", "   Bug@", " Ghost@"
+    db " Steel@", "  Fire@", " Water@", " Grass@", "Electr@", "Psychc@", "   Ice@", "Dragon@"
+    db "  Dark@", " Fairy@", "   ???@"
 
 .Classes:
-    db "Phys", "Spcl", "Stat"   ; Each entry is 4 bytes; adjust as needed.
+    db "Phys@", "Spcl@", "Stat@"
 
 .PrintMoveDesc:
     push de
-    call SpeechTextbox
-    ld a, [wMenuSelection]
+    call SpeechTextBox
+    ld a, [MenuSelection]
     inc a
     pop de
     ret z
-    dec a
-    ld [wCurSpecies], a
+    ld [CurSpecies], a
     hlcoord 1, 14
-    predef_jump PrintMoveDescription
+    predef PrintMoveDesc
+    ret
 
-Text_EggMoveReminderIntro:
-    text_far _EggMoveReminderIntro
-    text_end
 Text_MoveReminderIntro:
-    text_far _MoveReminderIntro
-    text_end
+    text_jump MoveReminderIntroText
+    db "@"
+
+Text_MoveReminderPrompt:
+    text_jump MoveReminderPromptText
+    db "@"
+
 Text_MoveReminderWhichMon:
-    text_far _MoveReminderWhichMon
-    text_end
+    text_jump MoveReminderWhichMonText
+    db "@"
+
 Text_MoveReminderWhichMove:
-    text_far _MoveReminderWhichMove
-    text_end
+    text_jump MoveReminderWhichMoveText
+    db "@"
+
 Text_MoveReminderCancel:
-    text_far _MoveReminderCancel
-    text_end
+    text_jump MoveReminderCancelText
+    db "@"
+
 Text_MoveReminderEgg:
-    text_far _MoveReminderEgg
-    text_end
+    text_jump MoveReminderEggText
+    db "@"
+
+Text_MoveReminderNoGoldLeaf:
+    text_jump MoveReminderNoGoldLeafText
+    db "@"
+
 Text_MoveReminderNoMon:
-    text_far _MoveReminderNoMon
-    text_end
+    text_jump MoveReminderNoMonText
+    db "@"
+
 Text_MoveReminderNoMoves:
-    text_far _MoveReminderNoMoves
-    text_end
+    text_jump MoveReminderNoMovesText
+    db "@"
