@@ -1,6 +1,6 @@
 SECTION "VRAM0", VRAM
 
-vFont EQU vTiles0
+vFont EQU $8000
 vTiles0:: ds $80 tiles
 vTiles1:: ds $80 tiles
 vTiles2:: ds $80 tiles
