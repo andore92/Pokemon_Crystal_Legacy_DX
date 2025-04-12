@@ -480,7 +480,7 @@ ChooseMoveToLearn:
 ; This code falls through into the ".print_move_stat_strings" local jump.
 
 ; This prints the notch in the description text box border
-; and the "TYPE/" and "ATK/" strings.
+; and the "TYPE/", "ATK/", "EFF/" and "ACC/" strings.
 .print_move_stat_strings
 	hlcoord 0,  9
 	ld de, MoveTypeTopString
@@ -490,6 +490,12 @@ ChooseMoveToLearn:
 	call PlaceString
 	hlcoord 12, 11
 	ld de, MoveAttackString
+	call PlaceString
+	hlcoord  4, 12
+	ld de, MoveChanceString
+	call PlaceString
+	hlcoord 12, 12
+	ld de, MoveAccuracyString
 	call PlaceString
 	hlcoord  4, 12
 	ld de, MoveChanceString
@@ -550,16 +556,34 @@ ChooseMoveToLearn:
 .print_move_accuracy
 	ld a, [wMenuSelection]
 	ld bc, MOVE_LENGTH
-	ld hl, (Moves + MOVE_ACC) - MOVE_LENGTH
+	ld hl, (Moves + MOVE_EFFECT) - MOVE_LENGTH
 	call AddNTimes
 	ld a, BANK(Moves)
 	call GetFarByte
+    cp EFFECT_MIRROR_MOVE
+    jr nc, .perfect_accuracy
+    ld a, [wMenuSelection]
+    ld bc, MOVE_LENGTH
+    ld hl, (Moves + MOVE_ACC) - MOVE_LENGTH
+    call AddNTimes
+    ld a, BANK(Moves)
+    call GetFarByte
 	Call ConvertPercentages
 	ld [wBuffer1], a
 	ld de, wBuffer1
 	lb bc, 1, 3
 	hlcoord 16, 12
 	call PrintNum
+    jr .print_move_attack
+
+; This prints "---" if the move
+; has perfect accuracy.
+.perfect_accuracy
+	ld de, MoveNullValueString
+	ld bc, 3
+	hlcoord 16, 12
+	call PlaceString
+
 ; This code falls through into the ".print_move_attack" local jump.
 
 ; This prints the move's attack number.
