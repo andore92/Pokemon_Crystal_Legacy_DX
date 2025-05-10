@@ -1,4 +1,5 @@
 INCLUDE "constants.asm"
+INCLUDE "gfx/font.asm"
 
 SECTION "NULL", ROM0
 NULL::

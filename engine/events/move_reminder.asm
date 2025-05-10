@@ -312,116 +312,33 @@ ChooseMoveToLearn::
 	jp PlaceString
 
 .PrintDetails
-	ld hl, wStringBuffer1
-	ld bc, wStringBuffer2 - wStringBuffer1
-	ld a, " "
-	call ByteFill
-	ld a, [wMenuSelection]
-	inc a
-	ret z
-	dec a
-	push de
-	dec a
+    ld a, [wMenuSelection]
+    inc a
+    ret z
+    dec a
+    push de
 
-IF DEF(PSS)
-	ld bc, MOVE_LENGTH
-	ld hl, Moves + MOVE_CATEGORY
-	call AddNTimes
-	ld a, BANK(Moves)
-	call GetFarByte
-	and CATEGORY_MASK
+    ; Get the move type byte (with PSS flags)
+    ld bc, MOVE_LENGTH
+    ld hl, Moves + MOVE_TYPE
+    call AddNTimes
+    ld a, BANK(Moves)
+    call GetFarByte
 
-; bc = a * 4
-	add a
-	add a
-	ld b, 0
-	ld c, a
-	ld hl, .Types
-	add hl, bc
-	ld d, h
-	ld e, l
-	ld hl, wStringBuffer1
-	ld bc, 3
-	call PlaceString
-	ld hl, wStringBuffer1 + 3
-	ld [hl], "/"
+    ld hl, wStringBuffer1
+    call PrintHexByte
+    ld [hl], "@"
 
-	ld a, [wMenuSelection]
-	dec a
-ENDC
+    pop hl
+    ld de, wStringBuffer1
+    jp PlaceString
 
-	ld bc, MOVE_LENGTH
-	ld hl, Moves + MOVE_TYPE
-	call AddNTimes
-	ld a, BANK(Moves)
-	call GetFarByte
-    ld [wTempByteValue], a ; ld [wd265], a
-
-; bc = a * 4
-	add a
-	add a
-	ld b, 0
-	ld c, a
-	ld hl, .Types
-	add hl, bc
-	ld d, h
-	ld e, l
-	ld hl, wStringBuffer1 + 4
-	ld bc, 3
-	call PlaceString
-	ld hl, wStringBuffer1 + 7
-	ld [hl], "/"
-
-	ld a, [wMenuSelection]
-	dec a
 	
-	ld bc, MOVE_LENGTH
-	ld hl, Moves + MOVE_POWER
-	call AddNTimes
-	ld a, BANK(Moves)
-	call GetFarByte
-	ld hl, wStringBuffer1 + 8
-	and a
-	jr z, .no_power
-    ld [wTempByteValue], a ; ld [wBuffer1], a
-	ld de, wTempByteValue ; ld de, wBuffer1
-	lb bc, 1, 3
-	call PrintNum
-	jr .got_power
-.no_power
-	ld de, .ThreeDashes
-	ld bc, 3
-	call PlaceString
-.got_power
-	ld hl, wStringBuffer1 + 11
-	ld [hl], "/"
+.ForcePHY db "PHY@"
+.ForceSPC db "SPC@"
+.ForceSTA db "STA@"
+.ForceUNK db "???@"
 
-	ld a, [wMenuSelection]
-	dec a
-
-; Print PP (works)
-	ld a, [wMenuSelection]
-	dec a
-	ld bc, MOVE_LENGTH
-	ld hl, Moves + MOVE_PP
-	call AddNTimes
-	ld a, BANK(Moves)
-	call GetFarByte
-    ld [wTempByteValue], a ; ld [wBuffer1], a
-	ld hl, wStringBuffer1 + 12
-    ld de, wTempByteValue ; ld de, wBuffer1
-	lb bc, 1, 2
-	call PrintNum
-	ld hl, wStringBuffer1 + 14
-	ld [hl], "@"
-
-	pop hl
-	ld de, wStringBuffer1
-	jp PlaceString
-	
-.ThreeDashes
-	db "---@"
-	
 .Types
 	db "NRM@"
 	db "FGT@"
@@ -452,6 +369,7 @@ ENDC
 	db "DRG@"
 	db "DRK@"
 	db "FRY@"
+	
 
 .PrintMoveDesc
 	push de
@@ -496,3 +414,22 @@ Text_MoveReminderNoMon:
 Text_MoveReminderNoMoves:
 	text_far _MoveReminderNoMoves
     text_end
+
+; Converts byte in A to 2-digit hex string in HL
+PrintHexByte:
+    push af
+    swap a
+    call .printnibble
+    pop af
+    and $0f
+    ; fallthrough
+.printnibble
+    cp 10
+    jr c, .digit
+    add "A" - 10
+    jr .done
+.digit
+    add "0"
+.done
+    ld [hli], a
+    ret

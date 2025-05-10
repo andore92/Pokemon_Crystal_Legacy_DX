@@ -1,5 +1,6 @@
 INCLUDE "gfx/font.asm"
 
+
 EnableHDMAForGraphics:
 	db FALSE
 

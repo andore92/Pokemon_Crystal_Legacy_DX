@@ -2347,7 +2347,8 @@ CyndaquilEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, LEER
-	db 1, FLARE_BLITZ
+	db 1, HYPER_BEAM
+	db 1, ICICLE_CRASH
 	db 6, SMOKESCREEN
 	db 7, EMBER
 	db 16, DEFENSE_CURL
@@ -2355,6 +2356,7 @@ CyndaquilEvosAttacks:
 	db 24, FLAME_WHEEL
 	db 32, SWIFT
 	db 38, FLAMETHROWER
+	db 46, FLARE_BLITZ
 	db 50, FIRE_BLAST
 	db 0 ; no more level-up moves
 
@@ -2371,6 +2373,7 @@ QuilavaEvosAttacks:
 	db 24, FLAME_WHEEL
 	db 32, SWIFT
 	db 38, FLAMETHROWER
+	db 46, FLARE_BLITZ
 	db 50, FIRE_BLAST
 	db 0 ; no more level-up moves
 
@@ -2386,6 +2389,7 @@ TyphlosionEvosAttacks:
 	db 24, FLAME_WHEEL
 	db 32, SWIFT
 	db 38, FLAMETHROWER
+	db 46, FLARE_BLITZ
 	db 50, FIRE_BLAST
 	db 0 ; no more level-up moves
 

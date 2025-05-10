@@ -42,14 +42,15 @@ NUM_LEVEL_STATS EQU const_value
 
 ; move struct members (see data/moves/moves.asm)
 rsreset
-MOVE_ANIM   rb ; 0
-MOVE_EFFECT rb ; 1
-MOVE_POWER  rb ; 2
-MOVE_TYPE   rb ; 3
-MOVE_ACC    rb ; 4
-MOVE_PP     rb ; 5
-MOVE_CHANCE rb ; 6
-MOVE_LENGTH EQU _RS
+MOVE_ANIM     rb ; 0
+MOVE_EFFECT   rb ; 1
+MOVE_POWER    rb ; 2
+MOVE_TYPE     rb ; 3
+MOVE_CATEGORY rb ; 4
+MOVE_ACC      rb ; 5
+MOVE_PP       rb ; 6
+MOVE_CHANCE   rb ; 7
+MOVE_LENGTH   EQU _RS
 
 ; stat constants
 ; indexes for:
